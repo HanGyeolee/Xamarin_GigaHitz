@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.Views.MainPage"
+             BackgroundColor="Black">
+    <AbsoluteLayout x:Name="Absolute">
+        <StackLayout    Spacing="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <AbsoluteLayout BackgroundColor="{StaticResource NoticeColor}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Notice.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.625"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_NoticePage"/>
+            </AbsoluteLayout>
+            <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Note.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.625"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_etcPage"/>
+            </AbsoluteLayout>
+            <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Record.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.625"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_RecordPage"/>
+            </AbsoluteLayout>
+            <AbsoluteLayout BackgroundColor="{StaticResource infoColor}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="information.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.625"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_infoPage"/>
+            </AbsoluteLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.Views.etcPage"
+             BackgroundColor="{StaticResource etcColor_Dark}">
+    <AbsoluteLayout x:Name="Absolute">
+        <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Back"/>
+            </AbsoluteLayout>
+        <StackLayout    Spacing="0"
+                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
+                        AbsoluteLayout.LayoutFlags="All">
+            <AbsoluteLayout BackgroundColor="{StaticResource etcColor_DeepDark}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Metronome.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.5"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_MetroPage"/>
+            </AbsoluteLayout>
+            <AbsoluteLayout BackgroundColor="{StaticResource etcColor_Dark}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Scale.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.5"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_PracticePage"/>
+            </AbsoluteLayout>
+            <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Image  Source="Piano.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 0.5"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_PianoPage"/>
+            </AbsoluteLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

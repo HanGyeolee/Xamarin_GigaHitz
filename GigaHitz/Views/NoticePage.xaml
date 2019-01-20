@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:cell="clr-namespace:GigaHitz.ViewModel"
+             xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             x:Class="GigaHitz.Views.NoticePage"
+             BackgroundColor="White">
+    <AbsoluteLayout x:Name="Absolute"
+                    BackgroundColor="{StaticResource NoticeColor}">
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Back"/>
+        </AbsoluteLayout>
+        <Label x:Name="Text"
+               Text="Performance"
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="{StaticResource FontTimeSize}"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               AbsoluteLayout.LayoutBounds="0.5, 0.0625, 1, 0.0625"
+               AbsoluteLayout.LayoutFlags="All"/>
+        <control:CarouselViewControl x:Name="CV" 
+                                     ShowIndicators="true"
+                                     CurrentPageIndicatorTintColor="White"
+                                     BackgroundColor="{StaticResource NoticeColor_Dark}"
+                                     Orientation="Horizontal"
+                                     AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.8671875"
+                                     AbsoluteLayout.LayoutFlags="All">
+            <control:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <AbsoluteLayout>
+                        <BoxView BackgroundColor="White"
+                                 Opacity="0.2"
+                                 Margin="10"
+                                 CornerRadius="30"
+                                 AbsoluteLayout.LayoutBounds="0, 0, 1, 0.953125"
+                                 AbsoluteLayout.LayoutFlags="All"/>
+                        <Image Source="{Binding Source}"
+                               Margin="20"
+                               Aspect="AspectFit"
+                               AbsoluteLayout.LayoutBounds="0, 0, 1, 0.953125"
+                               AbsoluteLayout.LayoutFlags="All"/>
+                    </AbsoluteLayout>
+                </DataTemplate>
+            </control:CarouselViewControl.ItemTemplate>
+        </control:CarouselViewControl>       
+    </AbsoluteLayout>
+</ContentPage>

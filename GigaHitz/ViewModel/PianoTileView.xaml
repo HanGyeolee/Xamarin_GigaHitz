@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GigaHitz.ViewModel.PianoTileView"
+             BackgroundColor="Gray">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="WhiteTile" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderColor" Value="Gray"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style x:Key="BlackTile" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="BorderColor" Value="Gray"/>
+                <Setter Property="BorderWidth" Value="3"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <AbsoluteLayout>
+        <AbsoluteLayout x:Name="White"                        
+                        AbsoluteLayout.LayoutBounds="0, 0.5, 0.9921875, 1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <Button x:Name="Ti" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="La" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.166667, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="So" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.333334, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="Fa" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.500001, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="Mi" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.666668, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="Re" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.833335, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+            <Button x:Name="Do" Style="{StaticResource WhiteTile}"
+                    AbsoluteLayout.LayoutBounds="0, 1, 1, 0.142857"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedWhiteTile"/>
+        </AbsoluteLayout>
+            <Button x:Name="Li" Style="{StaticResource BlackTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.1074915, 0.5625, 0.090625"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedBlackTile"/>
+            <Button x:Name="Si" Style="{StaticResource BlackTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.2662945, 0.5625, 0.090625"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedBlackTile"/>
+            <Button x:Name="Fi" Style="{StaticResource BlackTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.4220985, 0.5625, 0.090625"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedBlackTile"/>
+            <Button x:Name="Ri" Style="{StaticResource BlackTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.7367075, 0.5625, 0.090625"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedBlackTile"/>
+            <Button x:Name="Di" Style="{StaticResource BlackTile}"
+                    AbsoluteLayout.LayoutBounds="0, 0.8945115, 0.5625, 0.090625"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Pressed="PressedTile" Released="ReleasedBlackTile"/>
+    </AbsoluteLayout>
+</ContentView>

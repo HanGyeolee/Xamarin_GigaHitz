@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.Views.infoPage"
+             BackgroundColor="{StaticResource infoColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="VerticalTextAlignment" Value="End"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style x:Key="ContentLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="VerticalTextAlignment" Value="Start"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout x:Name="Absolute">
+        <AbsoluteLayout BackgroundColor="{StaticResource infoColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Back"/>
+            </AbsoluteLayout>
+        <StackLayout    Spacing="0"
+                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout    VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Label Text="Used By"
+                       Style="{StaticResource TitleLabel}"/>
+                <Label Text="가톨릭대학교 성심교정&#10;중앙 아카펠라 동아리&#10;기가히츠"
+                       Style="{StaticResource ContentLabel}"/>
+            </StackLayout>
+            <StackLayout    VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Label Text="Created By"
+                       Style="{StaticResource TitleLabel}"/>
+                <Label Text="최한결"
+                       Style="{StaticResource ContentLabel}"/>
+            </StackLayout>
+            <StackLayout    VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Label Text="Designed By"
+                       Style="{StaticResource TitleLabel}"/>
+                <Label Text="임현아"
+                       Style="{StaticResource ContentLabel}"/>
+            </StackLayout>
+            <StackLayout    VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Label Text="Thanks To"
+                       Style="{StaticResource TitleLabel}"/>
+                <Label Text="오경하"
+                       Style="{StaticResource ContentLabel}"/>
+            </StackLayout>
+            <StackLayout    VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <Label Text="Feedback At"
+                       Style="{StaticResource TitleLabel}"/>
+                <Label Text="hangoil65@gmail.com &#10;"
+                       Style="{StaticResource ContentLabel}"/>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

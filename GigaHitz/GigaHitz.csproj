@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
+    <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="ViewModel\" />
+    <Folder Include="Views\etcContent\" />
+    <Folder Include="Views\RecordContent\" />
+    <Folder Include="Views\NoticeContent\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="TouchApi\" />
+    <Folder Include="DataBase\" />
+    <Folder Include="PermissionApi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\SplashPage.xaml" />
+    <EmbeddedResource Remove="AppResources.resx" />
+    <EmbeddedResource Remove="Localize\AppResources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Resource\AppResources.Designer.cs" />
+    <Compile Remove="Localize\AppResources.Designer.cs" />
+    <Compile Remove="ViewModel\ExLabel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove=".DS_Store" />
+    <None Remove="Views\.DS_Store" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "854963434978",
+    "firebase_url": "https://gigahitz-41617.firebaseio.com",
+    "project_id": "gigahitz-41617",
+    "storage_bucket": "gigahitz-41617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854963434978:android:a01887f3df1e70e8",
+        "android_client_info": {
+          "package_name": "com.moment.GigaHitz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854963434978-76r96uuranivmbmvip6pf85buflid9he.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA31g42c0J9yuh-4aMPXdrOZG6mzSdTPtA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

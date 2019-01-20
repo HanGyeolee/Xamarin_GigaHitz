@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.Views.RecordPage"
+             BackgroundColor="{StaticResource RecordColor}">
+    <AbsoluteLayout x:Name="Absolute">
+        <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+            <Image  Source="menu_button.png"
+                    IsEnabled="false"
+                    AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                    AbsoluteLayout.LayoutFlags="All"/>
+            <Button BackgroundColor="Transparent"
+                    CornerRadius="0"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Clicked="Btn_Back"/>
+        </AbsoluteLayout>
+            <Image Source="microphone.png"
+                   Scale=".75"
+                   IsEnabled="false"
+                   AbsoluteLayout.LayoutBounds="0.5, 0.21875, 0.9375, 0.625"
+                   AbsoluteLayout.LayoutFlags="All"/>
+        <StackLayout    BackgroundColor="{StaticResource RecordColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.265625"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name="current"
+                       Text="  00:00"
+                       TextColor="{StaticResource RecordColor}"
+                       FontSize="{StaticResource FontTimeSize}"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+                <Editor x:Name="edit"
+                        Placeholder="FileName"
+                        BackgroundColor="{StaticResource RecordColor}"
+                        TextColor="White"
+                        FontSize="{StaticResource FontFileSize}"
+                        MaxLength="17"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        TextChanged="NameChanged"/>
+                <Label x:Name="duration"
+                       Text="00:00  "
+                       TextColor="White"
+                       FontSize="{StaticResource FontTimeSize}"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout    Orientation="Horizontal">
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <Image  Source="option.png"
+                            Scale=".5"
+                            IsEnabled="false"
+                            IsVisible="false"
+                            AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"/>
+                    <Button BackgroundColor="Transparent"
+                            CornerRadius="0"
+                            IsEnabled="false"
+                            IsVisible="false"
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"
+                            Clicked="Btn_Option"/>
+                </AbsoluteLayout>
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <AbsoluteLayout x:Name="record"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                        <Image  Source="onair.png"
+                                Scale=".5"
+                                IsEnabled="false"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"/>
+                        <Button BackgroundColor="Transparent"
+                                CornerRadius="0"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                Clicked="Btn_Record"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout x:Name="pause"
+                                    IsVisible="false"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                        <Image  Source="stop.png"
+                                Scale=".5"
+                                IsEnabled="false"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"/>
+                        <Button BackgroundColor="Transparent"
+                                CornerRadius="0"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                Clicked="Btn_Pause"/>
+                    </AbsoluteLayout>
+                </AbsoluteLayout>
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <Image  Source="menu.png"
+                            Scale=".5"
+                            IsEnabled="false"
+                            AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"/>
+                    <Button BackgroundColor="Transparent"
+                            CornerRadius="0"
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"
+                            Clicked="Btn_List"/>
+                </AbsoluteLayout>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

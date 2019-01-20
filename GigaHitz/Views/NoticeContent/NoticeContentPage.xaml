@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.Views.NoticeContent.NoticeContentPage"
+             BackgroundColor="White">
+    <AbsoluteLayout x:Name="Absolute">
+        <AbsoluteLayout BackgroundColor="{StaticResource NoticeColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Back"/>
+        </AbsoluteLayout>
+        <Label x:Name="Text"
+               Text="공지 사항"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               AbsoluteLayout.LayoutBounds="0.5, 0.0625, 1, 0.0625"
+               AbsoluteLayout.LayoutFlags="All"/>
+        <ListView AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.875"
+                  AbsoluteLayout.LayoutFlags="All">
+        </ListView>
+    </AbsoluteLayout>
+</ContentPage>

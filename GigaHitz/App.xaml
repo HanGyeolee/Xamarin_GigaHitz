@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GigaHitz.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="UpperColor">#F9FBC8</Color>
+            <Color x:Key="LowerColor">#98FDB0</Color>
+            <Color x:Key="NoticeColor">#DF71A9</Color>
+            <Color x:Key="NoticeColor_Dark">#D6679F</Color>
+            <Color x:Key="etcColor">#879CFE</Color>
+            <Color x:Key="etcColor_Dark">#7E92F4</Color>
+            <Color x:Key="etcColor_DeepDark">#7588EA</Color>
+            <Color x:Key="RecordColor">#F6AC64</Color>
+            <Color x:Key="RecordColor_Dark">#EDA25A</Color>
+            <Color x:Key="RecordColor_DeepDark">#E49850</Color>
+            <Color x:Key="infoColor">#A16FD6</Color>
+            <OnPlatform x:Key="FontTimeSize" x:TypeArguments="x:Double" iOS="22" Android="17"/>
+            <OnPlatform x:Key="FontFileSize" x:TypeArguments="x:Double" iOS="17" Android="14"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

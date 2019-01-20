@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:cell="clr-namespace:GigaHitz.ViewModel"
+             xmlns:tt="clr-namespace:GigaHitz.TouchApi"
+             x:Class="GigaHitz.Views.etcContent.PracticePage"
+             BackgroundColor="{StaticResource etcColor_DeepDark}">
+    <AbsoluteLayout x:Name="Absolute">
+        <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Back"/>
+        </AbsoluteLayout>
+        <ListView   x:Name="LV" 
+                    BackgroundColor="white" 
+                    SelectionMode="Single"
+                    ItemSelected="SetPlay"
+                    AbsoluteLayout.LayoutBounds="0.5, 0.21875, 0.9375, 0.625"
+                    AbsoluteLayout.LayoutFlags="All">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <cell:PracticeViewCell Title="{Binding Title}"
+                                         Time="{Binding Time}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.265625"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout    Orientation="Horizontal">
+                <Label x:Name="current"
+                       Text="  00:00"
+                       TextColor="White"
+                       FontSize="{StaticResource FontTimeSize}"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="Center"/>
+                <Slider x:Name="slider"
+                        HorizontalOptions="FillAndExpand">
+                    <Slider.Effects>
+                        <tt:TouchEffect Capture="true"
+                                        TouchAction="OnTouchEffectAction"/>
+                    </Slider.Effects>
+                </Slider>
+                <Label x:Name="duration"
+                       Text="00:00  "
+                       TextColor="White"
+                       FontSize="{StaticResource FontTimeSize}"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+            <StackLayout    Orientation="Horizontal">
+                <AbsoluteLayout VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="CenterAndExpand">
+                    <AbsoluteLayout x:Name="play"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                        <Image  Source="play.png"
+                                Scale=".5"
+                                IsEnabled="false"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"/>
+                        <Button BackgroundColor="Transparent"
+                                CornerRadius="0"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                Clicked="Btn_Play"/>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout x:Name="pause"
+                                    IsVisible="false"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                        <Image  Source="pause.png"
+                                Scale=".5"
+                                IsEnabled="false"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"/>
+                        <Button BackgroundColor="Transparent"
+                                CornerRadius="0"
+                                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                Clicked="Btn_Pause"/>
+                    </AbsoluteLayout>
+                </AbsoluteLayout>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>
