@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace GigaHitz.Views.etcContent
 {
@@ -28,8 +30,10 @@ namespace GigaHitz.Views.etcContent
             soundEffect.AddSystemSound("Tok");
             soundEffect.AddSystemSound("Tok");
 
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
+            ////status bar
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void Calculate()
@@ -57,7 +61,7 @@ namespace GigaHitz.Views.etcContent
 
             Device.BeginInvokeOnMainThread(delegate
             {
-                edit.Text = bpm.ToString();
+                (sender as Editor).Text = bpm.ToString();
             });
 
             Calculate();

@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms;
 
 namespace GigaHitz.Views.etcContent
@@ -37,8 +39,10 @@ namespace GigaHitz.Views.etcContent
             // 슬라이드 설정을 해준다.
             // 여기서 슬라이드는 터치이펙트를 가지고 있다.
 
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
+            ////status bar
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
 
             Load();
         }

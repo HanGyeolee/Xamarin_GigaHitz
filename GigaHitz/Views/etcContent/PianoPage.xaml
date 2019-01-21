@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:GigaHitz.ViewModel"
              xmlns:tt="clr-namespace:GigaHitz.TouchApi"
              x:Class="GigaHitz.Views.etcContent.PianoPage"
-             BackgroundColor="{StaticResource etcColor_Dark}">
+             BackgroundColor="{StaticResource etcColor}">
     <AbsoluteLayout>
         <RelativeLayout BackgroundColor="{StaticResource etcColor}"
                         AbsoluteLayout.LayoutBounds="0, 0, 0.125, 1"
