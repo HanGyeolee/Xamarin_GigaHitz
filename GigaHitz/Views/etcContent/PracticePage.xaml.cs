@@ -33,16 +33,13 @@ namespace GigaHitz.Views.etcContent
             record = new ObservableCollection<ViewModel.RecordViewModel>();
             player = DependencyService.Get<Interfaces.IAudioPlayer>();
 
-            LV.RowHeight = 60;
-            changeValue = false;
-
-            // 슬라이드 설정을 해준다.
-            // 여기서 슬라이드는 터치이펙트를 가지고 있다.
-
             ////status bar
             On<iOS>().SetUseSafeArea(true);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
+            LV.RowHeight = 60;
+            changeValue = false;
 
             Load();
         }

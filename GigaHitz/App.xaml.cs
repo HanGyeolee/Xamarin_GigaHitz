@@ -13,7 +13,10 @@ namespace GigaHitz
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.MainPage());
+            MainPage = new NavigationPage(new Views.MainPage())
+            {
+                BackgroundColor = Color.Transparent
+            };
             //MainPage = new Views.MainPage();
         }
 

@@ -82,6 +82,7 @@
                                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                                          AbsoluteLayout.LayoutFlags="All"/>
                     <Label Text="C3" Rotation="-90"
+                           TextColor="Black"
                            IsEnabled="false"
                            AbsoluteLayout.LayoutBounds="1, 0.96875, 0.125, 0.125"
                            AbsoluteLayout.LayoutFlags="All"/>
@@ -91,6 +92,7 @@
                                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                                          AbsoluteLayout.LayoutFlags="All"/>
                     <Label Text="C2" Rotation="-90"
+                           TextColor="Black"
                            IsEnabled="false"
                            AbsoluteLayout.LayoutBounds="1, 0.96875, 0.125, 0.125"
                            AbsoluteLayout.LayoutFlags="All"/>

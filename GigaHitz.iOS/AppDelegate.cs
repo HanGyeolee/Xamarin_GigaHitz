@@ -27,6 +27,7 @@ namespace GigaHitz.iOS
             global::Xamarin.Forms.Forms.Init();
             global::CarouselView.FormsPlugin.iOS.CarouselViewRenderer.Init();
 
+            ObjCRuntime.Class.ThrowOnInitFailure = false;
 
             LoadApplication(new App());
 

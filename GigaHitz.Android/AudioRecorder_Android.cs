@@ -44,8 +44,9 @@ namespace GigaHitz.Droid
             {
                 recorder.SetAudioSource(AudioSource.Mic);
                 recorder.SetOutputFormat(OutputFormat.Mpeg4);
-                recorder.SetAudioEncoder(AudioEncoder.AacEld);
-                recorder.SetAudioSamplingRate(44100);
+                recorder.SetAudioEncoder(AudioEncoder.Aac);
+                recorder.SetAudioEncodingBitRate((int)(256 * 1024 * 8));
+                recorder.SetAudioSamplingRate(48000);
                 recorder.SetAudioChannels(1);
                 recorder.SetOutputFile(filePath);
             }

@@ -4,7 +4,7 @@
              xmlns:cell="clr-namespace:GigaHitz.ViewModel"
              xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              x:Class="GigaHitz.Views.NoticePage"
-             BackgroundColor="White">
+             BackgroundColor="{StaticResource NoticeColor}">
     <AbsoluteLayout x:Name="Absolute"
                     BackgroundColor="{StaticResource NoticeColor}">
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"

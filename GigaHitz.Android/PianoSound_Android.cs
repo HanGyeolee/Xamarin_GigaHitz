@@ -6,10 +6,10 @@ using Android.OS;
 using Android.Media;
 using Android.Content.Res;
 
-[assembly: Dependency(typeof(GigaHitz.Droid.SoundEffect_Android))]
+[assembly: Dependency(typeof(GigaHitz.Droid.PianoSound_Android))]
 namespace GigaHitz.Droid
 {
-    public class SoundEffect_Android : Interfaces.ISoundEffect
+    public class PianoSound_Android : Interfaces.IPianoSound
     {
         SoundPool sp;
         AssetManager asset;

@@ -12,7 +12,7 @@ namespace GigaHitz.Views.etcContent
     {
         Interfaces.ISoundEffect soundEffect;
 
-        private int note = 4, time = 4, bpm = 0; 
+        private int note = 4, time = 4, bpm = 0;
         double sleep_half;
 
         bool playing, toggle;

@@ -5,6 +5,7 @@ namespace GigaHitz.ViewModel
 {
     public class ToggleButton : Button
     {
+        private EventHandler e;
         public event EventHandler<ToggledEventArgs> Toggled;
 
         public static BindableProperty IsToggledProperty =
@@ -13,7 +14,8 @@ namespace GigaHitz.ViewModel
 
         public ToggleButton()
         {
-            Clicked += (sender, args) => IsToggled ^= true;
+            e = (sender, args) => IsToggled ^= true;
+            Clicked += e;
         }
 
         public bool IsToggled
@@ -38,6 +40,11 @@ namespace GigaHitz.ViewModel
 
             // Set the visual state
             VisualStateManager.GoToState(toggleButton, isToggled ? "ToggledOn" : "ToggledOff");
+        }
+
+        ~ToggleButton()
+        {
+            Clicked -= e;
         }
     }
 }

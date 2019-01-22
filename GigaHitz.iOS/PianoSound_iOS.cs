@@ -4,10 +4,10 @@ using Xamarin.Forms;
 using Foundation;
 using AVFoundation;
 
-[assembly: Dependency(typeof(GigaHitz.iOS.SoundEffect_iOS))]
+[assembly: Dependency(typeof(GigaHitz.iOS.PianoSound_iOS))]
 namespace GigaHitz.iOS
 {
-    public class SoundEffect_iOS : Interfaces.ISoundEffect
+    public class PianoSound_iOS : Interfaces.IPianoSound
     {
         AVAudioPlayer[] sp;
         NSError err;

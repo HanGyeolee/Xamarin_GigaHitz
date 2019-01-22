@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace GigaHitz.Views
         Interfaces.IAudioRecorder recorder;
         IPermission permission;
 
-        PermissionStatus status_MIC, status_STR;
+        PermissionStatus status_MIC;
         string fileName, path, filePath;
 
         DateTime dt, nt;
@@ -24,11 +25,16 @@ namespace GigaHitz.Views
         {
             InitializeComponent();
 
+            edit.Keyboard = Keyboard.Plain;
+
             recorder = DependencyService.Get<Interfaces.IAudioRecorder>();
             permission = DependencyService.Get<IPermission>();
 
-            // 에디터의 값이 변경될 때마다 값을 넣어준다.
-            // 디렉토리를 검사하는 명령어 필수
+            ////status bar
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
             path = CreateDirectory();
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
@@ -38,9 +44,6 @@ namespace GigaHitz.Views
 
             edit.Text = fileName;
 
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
-
             Device.StartTimer(TimeSpan.FromSeconds(1), delegate
             {
                 dt = DateTime.Now;
@@ -48,7 +51,6 @@ namespace GigaHitz.Views
             });
 
             status_MIC = permission.CheckPermissionAsync(Permission.Microphone).Result;
-            status_STR = permission.CheckPermissionAsync(Permission.Storage).Result;
         }
 
         string CreateDirectory()
@@ -84,7 +86,7 @@ namespace GigaHitz.Views
 
         async void Btn_Record(object sender, EventArgs s)
         {
-            if (status_MIC.Equals(PermissionStatus.Granted) && status_STR.Equals(PermissionStatus.Granted))
+            if (status_MIC.Equals(PermissionStatus.Granted))
             {
                 if (recorder.Setting(filePath))
                 {
@@ -103,22 +105,41 @@ namespace GigaHitz.Views
                 else
                 {
                     await DisplayAlert("죄송해요!", "파일명을 한글로 저장할 수 없어요...", "그렇군요");
+                    //"申し訳ありません！","ファイル名を日本語で保存することができません...","なるほど"
+                    //"Sorry!", "The file name can not be saved in a language other than English.", "I see"
                 }
             }
             else
             {
-                if (!status_MIC.Equals(PermissionStatus.Granted))
+#region RequestPermission
+                if (Device.RuntimePlatform.Equals(Device.iOS))
                 {
-                    await permission.RequestPermissionsAsync(new Permission[] { Permission.Microphone }).ContinueWith(delegate {
-                        status_MIC = permission.CheckPermissionAsync(Permission.Microphone).Result;
-                    });
+                    if (status_MIC.Equals(PermissionStatus.Unknown))
+                    {
+                        await permission.RequestPermissionsAsync(new Permission[] { Permission.Microphone }).ContinueWith(async delegate
+                        {
+                            status_MIC = await permission.CheckPermissionAsync(Permission.Microphone);
+                        });
+                    }
+                    //else if (!status_MIC.Equals(PermissionStatus.Granted))
+                    //    await DisplayAlert("죄송해요!", "마이크 권한이 필요해요...", "그렇군요");
+                    //"申し訳ありません！","マイクの許可が必要です...","なるほど"
+                    //"Sorry!", "Microphone permission is required...", "I see"
                 }
-                if (!status_STR.Equals(PermissionStatus.Granted))
+                else
                 {
-                    await permission.RequestPermissionsAsync(new Permission[] { Permission.Storage }).ContinueWith(delegate {
-                        status_STR = permission.CheckPermissionAsync(Permission.Storage).Result;
-                    });
+                    if (!status_MIC.Equals(PermissionStatus.Granted))
+                    {
+                        //await DisplayAlert("죄송해요!", "마이크 권한이 필요해요...", "그렇군요");
+                        //"申し訳ありません！","マイクの許可が必要です...","なるほど"
+                        //"Sorry!", "Microphone permission is required...", "I see"
+                        await permission.RequestPermissionsAsync(new Permission[] { Permission.Microphone }).ContinueWith(async delegate
+                        {
+                            status_MIC = await permission.CheckPermissionAsync(Permission.Microphone);
+                        });
+                    }
                 }
+#endregion
             }
         }
 

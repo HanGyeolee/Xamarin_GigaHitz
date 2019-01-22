@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using GigaHitz.PermissionApi;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace GigaHitz.Views.RecordContent
 {
@@ -13,17 +15,16 @@ namespace GigaHitz.Views.RecordContent
         Interfaces.IAudioPlayer player;
         ViewModel.RecordViewModel selectedItem;
         IPermission permission;
-        PermissionStatus status_STR;
+        //PermissionStatus status_STR;
 
         double MaxTime;
         string path;
-        bool changeValue;
+        bool changeValue, cts;
 
         Point StartP, LastP, PastP;
         double buf;
 
         public ObservableCollection<ViewModel.RecordViewModel> record { get; set; }
-        CancellationTokenSource cts;
 
         public ListPage()
         {
@@ -38,20 +39,19 @@ namespace GigaHitz.Views.RecordContent
             player = DependencyService.Get<Interfaces.IAudioPlayer>();
             permission = DependencyService.Get<IPermission>();
 
+            ////status bar
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
             LV.RowHeight = 60;
             changeValue = false;
-
-            // 슬라이드 설정을 해준다.
-            // 여기서 슬라이드는 터치이펙트를 가지고 있다.
+            cts = false;
 
             path = CreateDirectory();
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
-
-            status_STR = permission.CheckPermissionAsync(Permission.Storage).Result;
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            //status_STR = permission.CheckPermissionAsync(Permission.Storage).Result;
             Load();
         }
 
@@ -67,8 +67,6 @@ namespace GigaHitz.Views.RecordContent
             string title, time, day;
             var filePath = Directory.GetFiles(path, "*.m4a");
 
-            if (status_STR.Equals(PermissionStatus.Granted))
-            {
                 foreach (string namepath in filePath)
                 {
                     title = namepath.Substring(path.Length + 1);
@@ -83,12 +81,41 @@ namespace GigaHitz.Views.RecordContent
                 }
                 LV.ItemsSource = record;
                 player.Release();
+            /*
+            if (status_STR.Equals(PermissionStatus.Granted))
+            {
             }
             else
             {
-                permission.RequestPermissionsAsync(new Permission[] { Permission.Storage });
-                status_STR = permission.CheckPermissionAsync(Permission.Storage).Result;
+                if (Device.RuntimePlatform.Equals(Device.iOS))
+                {
+                    if (status_STR.Equals(PermissionStatus.Unknown))
+                    {
+                        permission.RequestPermissionsAsync(new Permission[] { Permission.Storage }).ContinueWith(async delegate
+                        {
+                            status_STR = await permission.CheckPermissionAsync(Permission.Storage);
+                        });
+                    }
+                    else if (!status_STR.Equals(PermissionStatus.Granted))
+                        DisplayAlert("죄송해요!", "외부 디렉토리 저장 권한이 필요해요...", "그렇군요");
+                    //"申し訳ありません！","外部ディレクトリの保存許可が必要です...","なるほど"
+                    //"Sorry!", "External directory storage permission is required...", "I see"
+                }
+                else
+                {
+                    if (status_STR.Equals(PermissionStatus.Denied))
+                    {
+                        DisplayAlert("죄송해요!", "외부 디렉토리 저장 권한이 필요해요...", "그렇군요");
+                        //"申し訳ありません！","外部ディレクトリの保存許可が必要です...","なるほど"
+                        //"Sorry!", "External directory storage permission is required...", "I see"
+                        permission.RequestPermissionsAsync(new Permission[] { Permission.Storage }).ContinueWith(async delegate
+                        {
+                            status_STR = await permission.CheckPermissionAsync(Permission.Storage);
+                        });
+                    }
+                }
             }
+            //*/
         }
 
         void SetPlay(object sender, SelectedItemChangedEventArgs e)
@@ -156,34 +183,26 @@ namespace GigaHitz.Views.RecordContent
 
         async void Btn_Home(object sender, EventArgs s)
         {
-            if (cts != null)
-            {
-                cts.Cancel();
-                cts = null;
-            }
+            cts = false;
             player.Release();
             await Navigation.PopToRootAsync(false);
         }
 
         async void Btn_Back(object sender, EventArgs s)
         {
-            if (cts != null)
-            {
-                cts.Cancel();
-                cts = null;
-            }
+            cts = false;
             player.Release();
             await Navigation.PopAsync(false);
         }
 
         void Btn_Play(object sender, EventArgs s)
         {
-            cts = new CancellationTokenSource();
+            cts = true;
             if (player != null)
             {
                 player.Start();
 
-                var task = new Task(Update, cts.Token);
+                var task = new Task(Update);
                 task.Start();
 
                 play.IsVisible = false;
@@ -195,13 +214,9 @@ namespace GigaHitz.Views.RecordContent
 
         void Btn_Pause(object sender, EventArgs s)
         {
-            player.Stop();
+            cts = false;
 
-            if (cts != null)
-            {
-                cts.Cancel();
-                cts = null;
-            }
+            player.Stop();
 
             //record start
             play.IsVisible = true;
@@ -215,9 +230,11 @@ namespace GigaHitz.Views.RecordContent
             if (selectedItem != null)
             {
                 var action = await DisplayActionSheet("동작", "취소", "제거", "공유");
-                if (action.Equals("제거"))
+                //"動作","キャンセル","削除","共有"
+                //"Action", "Cancel", "Delete", "Share"
+                if (action.Equals("제거")) //"削除"
                     await Delete();
-                else if (action.Equals("공유"))
+                else if (action.Equals("공유")) //"共有"
                     DependencyService.Get<Interfaces.IShare>().Share(selectedItem.filePath);
             }
         }
@@ -225,6 +242,8 @@ namespace GigaHitz.Views.RecordContent
         async Task<bool> Delete()
         {
             var delete = await DisplayAlert("삭제하시겠어요?", "되돌릴 수 없어요!", "네", "아니요");
+            //"削除しますか","元に戻すことはできません","はい","いいえ"
+            //"Do you want to delete?", "Can not be undone", "Yes", "No"
 
             if (delete)
             {
@@ -239,12 +258,13 @@ namespace GigaHitz.Views.RecordContent
 
         void OnRefreshing(object sender, EventArgs s)
         {
-            var list = (sender as ListView);
+            var list = (sender as Xamarin.Forms.ListView);
             //put your refreshing logic here
 
             record.Clear();
 
-            Load();
+            Device.BeginInvokeOnMainThread(Load);
+
 
             //make sure to end the refresh state
             list.IsRefreshing = false;
@@ -253,7 +273,7 @@ namespace GigaHitz.Views.RecordContent
         // current Text change with current time
         void Update()
         {
-            while (true)
+            while (cts)
             {
                 if (!changeValue)
                 {

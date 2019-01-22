@@ -1,4 +1,6 @@
 ﻿using System;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -11,8 +13,10 @@ namespace GigaHitz.Views
         {
             InitializeComponent();
 
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
+            ////status bar
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
         }
 
         async void Btn_Back(object sender, EventArgs s)

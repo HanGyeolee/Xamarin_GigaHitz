@@ -1,4 +1,5 @@
 ﻿using System;
+using Java.IO;
 using Xamarin.Forms;
 using Android.OS;
 using Android.Media;
@@ -12,6 +13,12 @@ namespace GigaHitz.Droid
     {
         MediaPlayer player;
         AssetManager asset;
+        EventHandler _e;
+
+        public AudioPlayer_Android()
+        {
+            asset = Android.App.Application.Context.Assets;
+        }
 
         public double GetDurationTime()
         {
@@ -31,9 +38,19 @@ namespace GigaHitz.Droid
 
         public bool Prepare(string filePath)
         {
+            if (_e != null)
+                player.Completion -= _e;
             player = new MediaPlayer();
-
-            player.SetDataSource(filePath);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+            {
+                player.SetDataSource(filePath);
+            }
+            else
+            {
+                FileInputStream fd = new FileInputStream(new File(filePath));
+                player.SetDataSource(fd.FD);
+                fd.Close();
+            }
 
             player.SetVolume(1, 1);
 
@@ -50,10 +67,12 @@ namespace GigaHitz.Droid
 
         public bool Prepare(string filePath, int channel)
         {
+            if (_e != null)
+                player.Completion -= _e;
             player = new MediaPlayer();
-            asset = Android.App.Application.Context.Assets;
+            var fd = asset.OpenFd("scales/" + filePath + ".mp3");
 
-            player.SetDataSource(asset.OpenFd("scales/" + filePath + ".mp3"));
+            player.SetDataSource(fd.FileDescriptor, fd.StartOffset, fd.Length);
 
             player.SetVolume(1, 1);
 
@@ -72,8 +91,11 @@ namespace GigaHitz.Droid
         {
             if (player != null)
             {
+                if (_e != null)
+                    player.Completion -= _e;
                 player.Reset();
                 player = null;
+                _e = null;
             }
         }
 
@@ -105,12 +127,14 @@ namespace GigaHitz.Droid
         public void Stop()
         {
             if (player != null)
-                player.Pause();
+                if(player.IsPlaying)
+                    player.Pause();
         }
 
         public void Finished(EventHandler e)
         {
-            player.Completion += e;
+            _e = e;
+            player.Completion += _e;
         }
     }
 }

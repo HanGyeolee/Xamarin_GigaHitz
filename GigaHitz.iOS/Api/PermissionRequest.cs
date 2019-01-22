@@ -38,9 +38,8 @@ namespace GigaHitz.iOS.Api
                     case Permission.Microphone:
                         try
                         {
-                            AVAudioSession.SharedInstance().RequestRecordPermission((bool granted) =>
-                                results.Add(permission, (granted ? PermissionStatus.Granted : PermissionStatus.Denied))
-                            );
+                            AVAudioSession.SharedInstance().RequestRecordPermission((bool granted) => 
+                                results.Add(permission, (granted ? PermissionStatus.Granted : PermissionStatus.Denied)));
                         }
                         catch (Exception e)
                         {
@@ -51,7 +50,6 @@ namespace GigaHitz.iOS.Api
                 if (!results.ContainsKey(permission))
                     results.Add(permission, PermissionStatus.Granted);
             }
-
             return Task.FromResult(results);
         }
 

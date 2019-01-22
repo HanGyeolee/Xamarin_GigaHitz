@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-//using Xamarin.Forms.PlatformConfiguration;
-//using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using System.Threading;
-using System.Threading.Tasks;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
@@ -12,18 +9,17 @@ namespace GigaHitz.Views
     public partial class NoticePage : ContentPage
     {
         public ObservableCollection<ImgSource> ImgUrl { get; set; }
-       
+
         public NoticePage()
         {
             InitializeComponent();
 
             ImgUrl = new ObservableCollection<ImgSource>();
 
-            NavigationPage.SetHasBackButton(this, false);
-            NavigationPage.SetHasNavigationBar(this, false);
-
             ////status bar
-            ////On<iOS>().SetUseSafeArea(true);
+            On<iOS>().SetUseSafeArea(true);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
 
             Load();
         }

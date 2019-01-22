@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ReleaseVersion>2.0.2</ReleaseVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,7 +26,6 @@
     <Folder Include="PermissionApi\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Remove="Views\SplashPage.xaml" />
     <EmbeddedResource Remove="AppResources.resx" />
     <EmbeddedResource Remove="Localize\AppResources.resx" />
   </ItemGroup>

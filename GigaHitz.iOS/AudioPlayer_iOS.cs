@@ -10,6 +10,8 @@ namespace GigaHitz.iOS
     {
         AVAudioPlayer player;
         NSError err;
+        EventHandler<AVStatusEventArgs> _e;
+
         readonly float maxVolume = 2f;
 
         public AudioPlayer_iOS()
@@ -35,6 +37,8 @@ namespace GigaHitz.iOS
 
         public bool Prepare(string filePath)
         {
+            if (_e != null)
+                player.FinishedPlaying -= _e;
             var url = new NSUrl(filePath);
 
             player = new AVAudioPlayer(url, "m4a", out err);
@@ -55,6 +59,8 @@ namespace GigaHitz.iOS
 
         public bool Prepare(string filePath, int channel)
         {
+            if (_e != null)
+                player.FinishedPlaying -= _e;
             var url = new NSUrl("scales/" + filePath + ".mp3");
 
             player = new AVAudioPlayer(url, "mp3", out err);
@@ -77,7 +83,10 @@ namespace GigaHitz.iOS
         {
             if (player != null)
             {
-                player.Stop();
+                if(_e != null)
+                    player.FinishedPlaying -= _e;
+                if (player.Playing)
+                    player.Stop();
                 player = null;
             }
         }
@@ -95,7 +104,6 @@ namespace GigaHitz.iOS
                 }
                 else
                 {
-                    player.Pause();
                     player.CurrentTime = sec;
                     player.PrepareToPlay();
                 }
@@ -112,15 +120,17 @@ namespace GigaHitz.iOS
         public void Stop()
         {
             if (player != null)
-                player.Pause();
+                if(player.Playing)
+                    player.Pause();
         }
 
         public void Finished(EventHandler e)
         {
-            player.FinishedPlaying += (object sender, AVStatusEventArgs ea) =>
+            _e = (object sender, AVStatusEventArgs ea) =>
             {
                 e?.Invoke(sender, EventArgs.Empty);
             };
+            player.FinishedPlaying += _e;
         }
     }
 }

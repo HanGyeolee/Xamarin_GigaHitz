@@ -73,7 +73,7 @@
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Feedback At"
                        Style="{StaticResource TitleLabel}"/>
-                <Label Text="hangoil65@gmail.com &#10;"
+                <Label Text="gigahitz.app@gmail.com &#10;"
                        Style="{StaticResource ContentLabel}"/>
             </StackLayout>
         </StackLayout>

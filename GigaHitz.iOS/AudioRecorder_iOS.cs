@@ -19,7 +19,11 @@ namespace GigaHitz.iOS
         public void Release()
         {
             if (recorder != null)
-                recorder.Stop();
+            {
+                if (recorder.Recording)
+                    recorder.Stop();
+                recorder = null;
+            }
         }
 
         public void Reset()
@@ -44,7 +48,8 @@ namespace GigaHitz.iOS
             {
                 Format = AudioToolbox.AudioFormatType.MPEG4AAC,
                 AudioQuality = AVAudioQuality.High,
-                SampleRate = 44100f,
+                EncoderBitRate = (int)(256 * 1024 * 8),
+                SampleRate = 48000f,
                 NumberChannels = 1,
             };
 
@@ -58,7 +63,8 @@ namespace GigaHitz.iOS
         public void Stop()
         {
             if (recorder != null)
-                recorder.Stop();
+                if (recorder.Recording)
+                    recorder.Stop();
         }
     }
 }

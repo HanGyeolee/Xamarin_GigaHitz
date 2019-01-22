@@ -15,6 +15,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ReleaseVersion>2.0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -104,6 +105,7 @@
     <Compile Include="SoundEffect_iOS.cs" />
     <Compile Include="Share_iOS.cs" />
     <Compile Include="Api\PermissionRequest.cs" />
+    <Compile Include="PianoSound_iOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -167,8 +169,78 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="GoogleService-Info.plist" />
+    <BundleResource Include="Resources\Logo.png" />
+    <BundleResource Include="Resources\Logo%402x.png" />
+    <BundleResource Include="Resources\Metronome.png" />
+    <BundleResource Include="Resources\Metronome%402x.png" />
+    <BundleResource Include="Resources\Note.png" />
+    <BundleResource Include="Resources\Note%402x.png" />
+    <BundleResource Include="Resources\Notice.png" />
+    <BundleResource Include="Resources\Notice%402x.png" />
+    <BundleResource Include="Resources\Piano.png" />
+    <BundleResource Include="Resources\Piano%402x.png" />
+    <BundleResource Include="Resources\Record.png" />
+    <BundleResource Include="Resources\Record%402x.png" />
+    <BundleResource Include="Resources\Scale.png" />
+    <BundleResource Include="Resources\Scale%402x.png" />
+    <BundleResource Include="Resources\Score.png" />
+    <BundleResource Include="Resources\Score%402x.png" />
+    <BundleResource Include="Resources\information.png" />
+    <BundleResource Include="Resources\information%402x.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\menu%402x.png" />
+    <BundleResource Include="Resources\menu_button.png" />
+    <BundleResource Include="Resources\menu_button%402x.png" />
+    <BundleResource Include="Resources\microphone.png" />
+    <BundleResource Include="Resources\microphone%402x.png" />
+    <BundleResource Include="Resources\onair.png" />
+    <BundleResource Include="Resources\onair%402x.png" />
+    <BundleResource Include="Resources\option.png" />
+    <BundleResource Include="Resources\option%402x.png" />
+    <BundleResource Include="Resources\pause.png" />
+    <BundleResource Include="Resources\pause%402x.png" />
+    <BundleResource Include="Resources\play.png" />
+    <BundleResource Include="Resources\play%402x.png" />
+    <BundleResource Include="Resources\share.png" />
+    <BundleResource Include="Resources\share%402x.png" />
+    <BundleResource Include="Resources\stop.png" />
+    <BundleResource Include="Resources\stop%402x.png" />
+    <BundleResource Include="Resources\scales\Scale1.mp3" />
+    <BundleResource Include="Resources\scales\Scale2.mp3" />
+    <BundleResource Include="Resources\scales\Scale3.mp3" />
+    <BundleResource Include="Resources\scales\Scale4.mp3" />
+    <BundleResource Include="Resources\scales\Scale5.mp3" />
+    <BundleResource Include="Resources\sounds\Di2.mp3" />
+    <BundleResource Include="Resources\sounds\Di3.mp3" />
+    <BundleResource Include="Resources\sounds\Do2.mp3" />
+    <BundleResource Include="Resources\sounds\Do3.mp3" />
+    <BundleResource Include="Resources\sounds\Fa2.mp3" />
+    <BundleResource Include="Resources\sounds\Fa3.mp3" />
+    <BundleResource Include="Resources\sounds\Fi2.mp3" />
+    <BundleResource Include="Resources\sounds\Fi3.mp3" />
+    <BundleResource Include="Resources\sounds\La2.mp3" />
+    <BundleResource Include="Resources\sounds\La3.mp3" />
+    <BundleResource Include="Resources\sounds\Li2.mp3" />
+    <BundleResource Include="Resources\sounds\Li3.mp3" />
+    <BundleResource Include="Resources\sounds\Mi2.mp3" />
+    <BundleResource Include="Resources\sounds\Mi3.mp3" />
+    <BundleResource Include="Resources\sounds\Re2.mp3" />
+    <BundleResource Include="Resources\sounds\Re3.mp3" />
+    <BundleResource Include="Resources\sounds\Ri2.mp3" />
+    <BundleResource Include="Resources\sounds\Ri3.mp3" />
+    <BundleResource Include="Resources\sounds\Si2.mp3" />
+    <BundleResource Include="Resources\sounds\Si3.mp3" />
+    <BundleResource Include="Resources\sounds\So2.mp3" />
+    <BundleResource Include="Resources\sounds\So3.mp3" />
+    <BundleResource Include="Resources\sounds\Ti2.mp3" />
+    <BundleResource Include="Resources\sounds\Ti3.mp3" />
+    <BundleResource Include="Resources\sounds\Tik.mp3" />
+    <BundleResource Include="Resources\sounds\Tok.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
 </Project>

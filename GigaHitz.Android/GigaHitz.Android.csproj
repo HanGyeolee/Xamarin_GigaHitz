@@ -20,6 +20,9 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
+    <ReleaseVersion>2.0.2</ReleaseVersion>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidLinkSkip>Xamarin.Android.Support.V7;</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,8 +32,9 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>None</AndroidLinkMode>
     <JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,8 +44,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -54,8 +56,6 @@
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +68,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Share_Android.cs" />
     <Compile Include="Api\PermissionRequest.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="PianoSound_Android.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -117,6 +119,59 @@
     <AndroidAsset Include="Assets\sounds\So3.mp3" />
     <AndroidAsset Include="Assets\sounds\Ti2.mp3" />
     <AndroidAsset Include="Assets\sounds\Ti3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Logo.png" />
+    <AndroidResource Include="Resources\drawable\Metronome.png" />
+    <AndroidResource Include="Resources\drawable\Note.png" />
+    <AndroidResource Include="Resources\drawable\Notice.png" />
+    <AndroidResource Include="Resources\drawable\Piano.png" />
+    <AndroidResource Include="Resources\drawable\Record.png" />
+    <AndroidResource Include="Resources\drawable\Scale.png" />
+    <AndroidResource Include="Resources\drawable\Score.png" />
+    <AndroidResource Include="Resources\drawable\information.png" />
+    <AndroidResource Include="Resources\drawable\menu.png" />
+    <AndroidResource Include="Resources\drawable\menu_button.png" />
+    <AndroidResource Include="Resources\drawable\microphone.png" />
+    <AndroidResource Include="Resources\drawable\onair.png" />
+    <AndroidResource Include="Resources\drawable\option.png" />
+    <AndroidResource Include="Resources\drawable\pause.png" />
+    <AndroidResource Include="Resources\drawable\play.png" />
+    <AndroidResource Include="Resources\drawable\share.png" />
+    <AndroidResource Include="Resources\drawable\stop.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Metronome.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Note.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Notice.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Piano.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Record.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Scale.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Score.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\information.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\microphone.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\onair.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\option.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\pause.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\play.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\share.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\stop.png" />
+    <AndroidResource Include="Resources\layout\Tabbar.axml" />
+    <AndroidResource Include="Resources\layout\Toolbar.axml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
