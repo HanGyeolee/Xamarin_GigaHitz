@@ -2,12 +2,15 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Collections.ObjectModel;
 using GigaHitz.PermissionApi;
+using GigaHitz.DataBase;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
+//TODO 대대적인 수정이 필요 iOS에서는 아예 작동이 안되는 문제가 발생
 namespace GigaHitz.Views.RecordContent
 {
     public partial class ListPage : ContentPage
@@ -19,7 +22,7 @@ namespace GigaHitz.Views.RecordContent
 
         double MaxTime;
         string path;
-        bool changeValue, cts;
+        bool changeValue, cts, playerReady;
 
         Point StartP, LastP, PastP;
         double buf;
@@ -33,7 +36,9 @@ namespace GigaHitz.Views.RecordContent
             play.IsVisible = true;
             play.IsEnabled = true;
             pause.IsVisible = false;
-            pause.IsVisible = false;
+            pause.IsEnabled = false;
+
+            playerReady = false;
 
             record = new ObservableCollection<ViewModel.RecordViewModel>();
             player = DependencyService.Get<Interfaces.IAudioPlayer>();
@@ -64,23 +69,29 @@ namespace GigaHitz.Views.RecordContent
 
         void Load()
         {
-            string title, time, day;
+            string title, time, day, creationTime;
             var filePath = Directory.GetFiles(path, "*.m4a");
+            
+            foreach (string namepath in filePath)
+            {
+                title = namepath.Substring(path.Length + 1);
 
-                foreach (string namepath in filePath)
-                {
-                    title = namepath.Substring(path.Length + 1);
+                var dt = File.GetCreationTime(namepath);
+                creationTime = dt.ToString("u");
+                day = dt.ToString("yyyy. MM. dd");
 
-                    var dt = File.GetCreationTime(namepath);
-                    day = dt.ToString("yyyy. MM. dd");
-
-                    player.Prepare(namepath);
+                if (playerReady = player.Prepare(namepath))
                     time = double2String(player.GetDurationTime(), "{0:00}:{1:00}");
+                else
+                    time = "00:00";
 
-                    record.Add(new ViewModel.RecordViewModel { Title = title, Time = time, Day = day, filePath = namepath });
-                }
-                LV.ItemsSource = record;
-                player.Release();
+                record.Add(new ViewModel.RecordViewModel { Title = title, Time = time, Day = day, filePath = namepath, creationTime = creationTime });
+            }
+            //sorting items
+            record = new ObservableCollection<ViewModel.RecordViewModel>(record.OrderByDescending((arg) => arg.creationTime));
+
+            LV.ItemsSource = record;
+            playerReady = player.Release();
             /*
             if (status_STR.Equals(PermissionStatus.Granted))
             {
@@ -126,10 +137,10 @@ namespace GigaHitz.Views.RecordContent
             play.IsVisible = true;
             play.IsEnabled = true;
             pause.IsVisible = false;
-            pause.IsVisible = false;
+            pause.IsEnabled = false;
 
             player.Stop();
-            if (player.Prepare(selectedItem.filePath))
+            if (playerReady = player.Prepare(selectedItem.filePath))
             {
                 MaxTime = player.GetDurationTime();
 
@@ -184,21 +195,14 @@ namespace GigaHitz.Views.RecordContent
         async void Btn_Home(object sender, EventArgs s)
         {
             cts = false;
-            player.Release();
+            playerReady = player.Release();
             await Navigation.PopToRootAsync(false);
-        }
-
-        async void Btn_Back(object sender, EventArgs s)
-        {
-            cts = false;
-            player.Release();
-            await Navigation.PopAsync(false);
         }
 
         void Btn_Play(object sender, EventArgs s)
         {
             cts = true;
-            if (player != null)
+            if (playerReady)
             {
                 player.Start();
 
@@ -208,7 +212,7 @@ namespace GigaHitz.Views.RecordContent
                 play.IsVisible = false;
                 play.IsEnabled = false;
                 pause.IsVisible = true;
-                pause.IsVisible = true;
+                pause.IsEnabled = true;
             }
         }
 
@@ -222,20 +226,22 @@ namespace GigaHitz.Views.RecordContent
             play.IsVisible = true;
             play.IsEnabled = true;
             pause.IsVisible = false;
-            pause.IsVisible = false;
+            pause.IsEnabled = false;
         }
 
         async void Btn_Option(object sender, EventArgs s)
         {
             if (selectedItem != null)
             {
-                var action = await DisplayActionSheet("동작", "취소", "제거", "공유");
+                string action = await DisplayActionSheet("동작", "취소", "제거", "공유");
                 //"動作","キャンセル","削除","共有"
                 //"Action", "Cancel", "Delete", "Share"
-                if (action.Equals("제거")) //"削除"
+                if (action == null)
+                    return;
+                else if (action.Equals("제거")) //"削除"
                     await Delete();
                 else if (action.Equals("공유")) //"共有"
-                    DependencyService.Get<Interfaces.IShare>().Share(selectedItem.filePath);
+                    await StaticDatas.Share.Share(selectedItem.filePath);
             }
         }
 
@@ -247,12 +253,30 @@ namespace GigaHitz.Views.RecordContent
 
             if (delete)
             {
+                cts = false;
+
+                player.Stop();
+                playerReady = player.Release();
+
+                //record start
+                play.IsVisible = true;
+                play.IsEnabled = true;
+                pause.IsVisible = false;
+                pause.IsEnabled = false;
+
                 File.Delete(selectedItem.filePath);
                 record.Remove(selectedItem);
 
+                Device.BeginInvokeOnMainThread(delegate
+                {
+                    duration.Text = "00:00  ";
+                    current.Text = "  00:00";
+                    slider.Value = 0;
+                });
+
+                selectedItem = null;
                 return true;
             }
-
             return false;
         }
 
@@ -264,7 +288,6 @@ namespace GigaHitz.Views.RecordContent
             record.Clear();
 
             Device.BeginInvokeOnMainThread(Load);
-
 
             //make sure to end the refresh state
             list.IsRefreshing = false;
@@ -303,6 +326,21 @@ namespace GigaHitz.Views.RecordContent
                     (tmp % 3600) / 60,
                     tmp % 60);
             return get;
+        }
+
+        async void Btn_Back(object sender, EventArgs s)
+        {
+            cts = false;
+            playerReady = player.Release();
+            await Navigation.PopAsync(false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            cts = false;
+            playerReady = player.Release();
+            Navigation.PopAsync(false);
+            return true;
         }
     }
 }

@@ -23,7 +23,6 @@ namespace GigaHitz
         protected override void OnStart()
         {
             // Handle when your app starts
-            var a = StaticDatas.Load().Result;
         }
 
         protected override void OnSleep()

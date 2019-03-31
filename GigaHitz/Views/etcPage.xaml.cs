@@ -42,5 +42,11 @@ namespace GigaHitz.Views
         {
             await Navigation.PushAsync(new etcContent.PianoPage(), false);
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PopAsync(false);
+            return true;
+        }
     }
 }

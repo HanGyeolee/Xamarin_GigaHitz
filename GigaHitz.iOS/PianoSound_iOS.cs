@@ -23,11 +23,10 @@ namespace GigaHitz.iOS
         public bool Play(int Index)
         {
             if (Index < count)
-            {
                 sp[Index].Play();
-                return true;
-            }
-            return false;
+            else
+                sp[count - 1].Play();
+            return true;
         }
 
         public void AddSystemSound(string filePath)
@@ -45,9 +44,16 @@ namespace GigaHitz.iOS
                     sp[Index].Stop();
                 sp[Index].CurrentTime = 0;
                 sp[Index].PrepareToPlay();
-                return await Task.FromResult<bool>(true);
             }
-            return await Task.FromResult<bool>(false);
+            else
+            {
+                if (sp[count - 1].Playing)
+                    sp[count - 1].Stop();
+                sp[count - 1].CurrentTime = 0;
+                sp[count - 1].PrepareToPlay();
+            }
+
+            return await Task.FromResult<bool>(true);
         }
 
         public void Release()

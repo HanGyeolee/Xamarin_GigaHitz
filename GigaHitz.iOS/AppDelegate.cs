@@ -6,6 +6,7 @@ using Foundation;
 using UIKit;
 
 using GigaHitz.iOS.Api;
+using CarouselView.FormsPlugin;
 
 namespace GigaHitz.iOS
 {
@@ -24,10 +25,14 @@ namespace GigaHitz.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            CarouselView.FormsPlugin.iOS.CarouselViewRenderer buf_1;
+
             global::Xamarin.Forms.Forms.Init();
             global::CarouselView.FormsPlugin.iOS.CarouselViewRenderer.Init();
 
             ObjCRuntime.Class.ThrowOnInitFailure = false;
+
+            buf_1 = null;
 
             LoadApplication(new App());
 

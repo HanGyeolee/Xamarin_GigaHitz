@@ -12,8 +12,11 @@ namespace GigaHitz.Views.etcContent
     public partial class PracticePage : ContentPage
     {
         Interfaces.IAudioPlayer player;
+        private readonly string[] vs = { "UpScale-C~G~C", "UpScale-CEGEC", "UpScale-CEGCGEC", "UpScale-Speedy", "UpScale-AllParts",
+                                         "DownScale-C~G~C", "DownScale-CEGEC", "DownScale-CEGCGEC", "DownScale-Speedy"};
+
         double MaxTime;
-        bool changeValue;
+        bool changeValue, playerReady;
 
         Point StartP, LastP, PastP;
         double buf;
@@ -29,6 +32,8 @@ namespace GigaHitz.Views.etcContent
             play.IsEnabled = true;
             pause.IsVisible = false;
             pause.IsVisible = false;
+
+            playerReady = false;
 
             record = new ObservableCollection<ViewModel.RecordViewModel>();
             player = DependencyService.Get<Interfaces.IAudioPlayer>();
@@ -46,24 +51,24 @@ namespace GigaHitz.Views.etcContent
 
         void Load()
         {
-            string title, time;
+            string fileName, time;
             int i = 1;
 
-            while(i < 6)
+            while(i < 9)
             {
-                title = "Scale" + i.ToString();
+                fileName = "Scale" + i.ToString();
 
-                if (player.Prepare(title, 2))
+                if (playerReady = player.Prepare(fileName, 2))
                     time = double2String(player.GetDurationTime(), "{0:00}:{1:00}");
                 else
                     time = "00:00";
 
-                record.Add(new ViewModel.RecordViewModel { Title = title, Time = time, Day = " "});
+                record.Add(new ViewModel.RecordViewModel { Title = vs[i - 1], Time = time, Day = " ", filePath = fileName });
 
                 i++;
             }
             LV.ItemsSource = record;
-            player.Release();
+            playerReady = player.Release();
         }
 
         void SetPlay(object sender, SelectedItemChangedEventArgs e)
@@ -77,7 +82,7 @@ namespace GigaHitz.Views.etcContent
             pause.IsVisible = false;
 
             player.Stop();
-            if (player.Prepare(item.Title, 2))
+            if (playerReady = player.Prepare(item.filePath, 2))
             {
                 MaxTime = player.GetDurationTime();
 
@@ -136,25 +141,14 @@ namespace GigaHitz.Views.etcContent
                 cts.Cancel();
                 cts = null;
             }
-            player.Release();
+            playerReady = player.Release();
             await Navigation.PopToRootAsync(false);
-        }
-
-        async void Btn_Back(object sender, EventArgs s)
-        {
-            if (cts != null)
-            {
-                cts.Cancel();
-                cts = null;
-            }
-            player.Release();
-            await Navigation.PopAsync(false);
         }
 
         void Btn_Play(object sender, EventArgs s)
         {
             cts = new CancellationTokenSource();
-            if (player != null)
+            if (playerReady)
             {
                 player.Start();
 
@@ -218,6 +212,29 @@ namespace GigaHitz.Views.etcContent
                     (tmp % 3600) / 60,
                     tmp % 60);
             return get;
+        }
+
+        async void Btn_Back(object sender, EventArgs s)
+        {
+            if (cts != null)
+            {
+                cts.Cancel();
+                cts = null;
+            }
+            playerReady = player.Release();
+            await Navigation.PopAsync(false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (cts != null)
+            {
+                cts.Cancel();
+                cts = null;
+            }
+            playerReady = player.Release();
+            Navigation.PopAsync(false);
+            return true;
         }
     }
 }

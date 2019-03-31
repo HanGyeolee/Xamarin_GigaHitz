@@ -120,6 +120,6 @@ Global
 		$0.XmlFormattingPolicy = $18
 		$18.inheritsSet = null
 		$18.scope = application/xaml+xml
-		version = 2.0.2
+		version = 2.1.4
 	EndGlobalSection
 EndGlobal

@@ -9,6 +9,8 @@ namespace GigaHitz.iOS
     public class AudioRecorder_iOS : Interfaces.IAudioRecorder
     {
         AVAudioRecorder recorder;
+        static int BitsPerSec = 256 * 1024;
+        static float SRate = 48000f;
 
         public void Recording()
         {
@@ -31,6 +33,40 @@ namespace GigaHitz.iOS
             recorder = null;
         }
 
+        public bool SetBitRate(int kbps)
+        {
+            switch (kbps)
+            {
+                case 96:
+                case 112:
+                case 128:
+                case 160:
+                case 192:
+                case 224:
+                case 256:
+                case 320:
+                    BitsPerSec = kbps * 1024;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public bool SetSampleRate(float rate)
+        {
+            int tmp = (int)(rate);
+            switch (tmp)
+            {
+                case 32000:
+                case 44100:
+                case 48000:
+                    SRate = rate;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         public bool Setting(string filePath)
         {
             NSUrl url;
@@ -38,7 +74,7 @@ namespace GigaHitz.iOS
             {
                 url = new NSUrl(filePath);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }
@@ -48,8 +84,8 @@ namespace GigaHitz.iOS
             {
                 Format = AudioToolbox.AudioFormatType.MPEG4AAC,
                 AudioQuality = AVAudioQuality.High,
-                EncoderBitRate = (int)(256 * 1024 * 8),
-                SampleRate = 48000f,
+                EncoderBitRate = BitsPerSec, //bits per sec
+                SampleRate = SRate,
                 NumberChannels = 1,
             };
 

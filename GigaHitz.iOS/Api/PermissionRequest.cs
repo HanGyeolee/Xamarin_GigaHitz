@@ -41,7 +41,7 @@ namespace GigaHitz.iOS.Api
                             AVAudioSession.SharedInstance().RequestRecordPermission((bool granted) => 
                                 results.Add(permission, (granted ? PermissionStatus.Granted : PermissionStatus.Denied)));
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             results.Add(permission, PermissionStatus.Unknown);
                         }

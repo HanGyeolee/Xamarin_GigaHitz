@@ -23,8 +23,6 @@
 	<string>GigaHitz</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.moment.GigaHitz</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -42,7 +40,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1</string>
+	<string>13</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -53,5 +51,7 @@
 	<array>
 		<string>microphone</string>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>2.1.4</string>
 </dict>
 </plist>

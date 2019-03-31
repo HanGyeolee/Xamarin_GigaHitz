@@ -1,7 +1,8 @@
-﻿namespace GigaHitz.Interfaces
+﻿using System.Threading.Tasks;
+namespace GigaHitz.Interfaces
 {
     public interface IShare
     {
-        void Share(string filePath);
+        Task<bool> Share(string filePath);
     }
 }

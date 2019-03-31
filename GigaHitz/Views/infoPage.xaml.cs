@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.Collections.Generic;
@@ -22,6 +24,12 @@ namespace GigaHitz.Views
         async void Btn_Back(object sender, EventArgs s)
         {
             await Navigation.PopAsync(false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PopAsync(false);
+            return true;
         }
     }
 }

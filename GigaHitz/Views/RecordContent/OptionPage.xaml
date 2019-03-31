@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:cell="clr-namespace:GigaHitz.ViewModel"
+             x:Class="GigaHitz.Views.RecordContent.OptionPage"
+             BackgroundColor="{StaticResource RecordColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout x:Name="Absolute"
+                    BackgroundColor="{StaticResource RecordColor_Dark}">
+        <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+                        AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Image  Source="menu_button.png"
+                        IsEnabled="false"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent"
+                        CornerRadius="0"
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Clicked="Btn_Home"/>
+        </AbsoluteLayout>
+        <StackLayout    Orientation="Vertical"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.21875, 0.9375, 0.625"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout    x:Name="BitsLayout"
+                            Orientation="Horizontal">
+                <Label  Text="비트 레이트"
+                        Style="{StaticResource TitleLabel}"
+                        HorizontalOptions="StartAndExpand"/>
+                <Label  x:Name="BitsValue"
+                        Style="{StaticResource TitleLabel}"
+                        Text="  256"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <BoxView    HeightRequest=".5"
+                        Color="White"/>
+            <StackLayout    x:Name="RateLayout"
+                            Orientation="Horizontal">
+                <Label  Text="샘플링 레이트"
+                        Style="{StaticResource TitleLabel}"
+                        HorizontalOptions="StartAndExpand"/>
+                <Label  x:Name="RateValue"
+                        Style="{StaticResource TitleLabel}"
+                        Text="44100"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.265625"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout Orientation="Horizontal"
+                         Opacity="0">
+                <Label Text="0"
+                       FontSize="{StaticResource FontTimeSize}"
+                       FontAttributes="Bold"/>
+                <Label Text="0"
+                       FontSize="{StaticResource FontFileSize}"/>
+            </StackLayout>
+            <StackLayout    Orientation="Horizontal">
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <Image  Source="option.png"
+                            Scale=".5"
+                            IsEnabled="false"
+                            Opacity="0"
+                            AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"/>
+                </AbsoluteLayout>
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <Image  Source="option.png"
+                            Scale=".5"
+                            IsEnabled="false"
+                            Opacity="0"
+                            AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"/>
+                </AbsoluteLayout>
+                <AbsoluteLayout VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                    <Image  Source="Record.png"
+                            Scale=".5"
+                            IsEnabled="false"
+                            AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"/>
+                    <Button BackgroundColor="Transparent"
+                            CornerRadius="0"
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                            AbsoluteLayout.LayoutFlags="All"
+                            Clicked="Btn_Back"/>
+                </AbsoluteLayout>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

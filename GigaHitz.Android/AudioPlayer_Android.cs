@@ -38,10 +38,10 @@ namespace GigaHitz.Droid
 
         public bool Prepare(string filePath)
         {
-            if (_e != null)
+            if (_e != null && player != null)
                 player.Completion -= _e;
             player = new MediaPlayer();
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.N) // android 7.0
             {
                 player.SetDataSource(filePath);
             }
@@ -58,7 +58,7 @@ namespace GigaHitz.Droid
             {
                 player.Prepare();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -67,36 +67,39 @@ namespace GigaHitz.Droid
 
         public bool Prepare(string filePath, int channel)
         {
-            if (_e != null)
+            if (_e != null && player != null)
                 player.Completion -= _e;
             player = new MediaPlayer();
-            var fd = asset.OpenFd("scales/" + filePath + ".mp3");
-
-            player.SetDataSource(fd.FileDescriptor, fd.StartOffset, fd.Length);
-
-            player.SetVolume(1, 1);
 
             try
             {
+                var fd = asset.OpenFd("scales/" + filePath + ".mp3");
+
+                player.SetDataSource(fd.FileDescriptor, fd.StartOffset, fd.Length);
+
+                player.SetVolume(1, 1);
+
                 player.Prepare();
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }
             return true;
         }
 
-        public void Release()
+        public bool Release()
         {
             if (player != null)
             {
                 if (_e != null)
                     player.Completion -= _e;
                 player.Reset();
+                player.Release();
                 player = null;
                 _e = null;
             }
+            return false;
         }
 
         public void SeekTo(double sec)

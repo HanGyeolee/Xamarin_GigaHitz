@@ -10,5 +10,13 @@ namespace GigaHitz.Views
         {
             InitializeComponent();
         }
+
+        public ProgressBar Progress
+        {
+            get
+            {
+                return progress;
+            }
+        }
     }
 }

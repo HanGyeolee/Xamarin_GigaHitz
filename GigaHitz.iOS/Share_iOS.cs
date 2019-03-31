@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 using Foundation;
 using CoreGraphics;
@@ -12,7 +14,7 @@ namespace GigaHitz.iOS
 {
     public class Share_iOS : Interfaces.IShare
     {
-        public void Share(string filePath)
+        public Task<bool> Share(string filePath)
         {
             var item = new NSUrl(filePath);
 
@@ -85,6 +87,8 @@ namespace GigaHitz.iOS
             }
 
             topController.PresentViewController(activityController, true, () => { });
+
+            return Task.FromResult<bool>(true);
         }
     }
 }

@@ -46,11 +46,10 @@ namespace GigaHitz.Droid
         public bool Play(int Index)
         {
             if (Index < count)
-            {
                 StreamId[Index] = sp.Play(SoundId[Index], 1, 1, 0, 0, 1);
-                return true;
-            }
-            return false;
+            else
+                StreamId[count - 1] = sp.Play(SoundId[count - 1], 1, 1, 0, 0, 1);
+            return true;
         }
 
         public void AddSystemSound(string filePath)
@@ -64,11 +63,10 @@ namespace GigaHitz.Droid
         public async Task<bool> Stop(int Index)
         {
             if (Index < count)
-            {
                 sp.Stop(StreamId[Index]);
-                return await Task.FromResult<bool>(true);
-            }
-            return await Task.FromResult<bool>(false);
+            else
+                sp.Stop(StreamId[count - 1]);
+            return await Task.FromResult<bool>(true);
         }
 
         public void Release()

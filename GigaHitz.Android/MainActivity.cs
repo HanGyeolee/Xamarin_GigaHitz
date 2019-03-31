@@ -1,10 +1,12 @@
 ﻿using System;
 
-using Android.App;
-using Android.Content.PM;
 using Android.OS;
+using Android.App;
+using Android.Gms.Common;
+using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.V7.Widget;
+using Firebase.Messaging;
 using CarouselView.FormsPlugin;
 
 namespace GigaHitz.Droid
@@ -18,24 +20,46 @@ namespace GigaHitz.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             //proguard true, not link
-            FitWindowsFrameLayout buf_0;
-            CarouselView.FormsPlugin.Android.CarouselViewRenderer buf_1;
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            global::Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::CarouselView.FormsPlugin.Android.CarouselViewRenderer.Init();
             global::GigaHitz.Droid.Share_Android.Init(this);
             global::GigaHitz.Droid.Api.PermissionRequest.Init(this);
 
-            buf_0 = null;
-            buf_1 = null;
+            IsPlayServicesAvailable();
 
             LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {   
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public bool IsPlayServicesAvailable()
+        {
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            string msgText;
+            if (resultCode != ConnectionResult.Success)
+            {
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    msgText = GoogleApiAvailability.Instance.GetErrorString(resultCode);
+                else
+                {
+                    msgText = "This device is not supported";
+                    Finish();
+                }
+                return false;
+            }
+            else
+            {
+                msgText = "Google Play Services is available.";
+                return true;
+            }
         }
     }
 }

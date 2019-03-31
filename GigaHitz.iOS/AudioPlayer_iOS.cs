@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using Xamarin.Forms;
+using AudioToolbox;
 using AVFoundation;
 using Foundation;
 
@@ -9,10 +11,11 @@ namespace GigaHitz.iOS
     public class AudioPlayer_iOS : Interfaces.IAudioPlayer
     {
         AVAudioPlayer player;
+        AVPlayerItem item;
         NSError err;
         EventHandler<AVStatusEventArgs> _e;
 
-        readonly float maxVolume = 2f;
+        readonly float maxVolume = 1f;
 
         public AudioPlayer_iOS()
         {
@@ -37,11 +40,16 @@ namespace GigaHitz.iOS
 
         public bool Prepare(string filePath)
         {
-            if (_e != null)
+            if (_e != null && player != null)
                 player.FinishedPlaying -= _e;
-            var url = new NSUrl(filePath);
+            //var url = new NSUrl(filePath, false); // can't
+            //TODO check err
+            var url = NSUrl.FromFilename(filePath); // can't
+            AVAsset av = AVAsset.FromUrl(url);
+            AVPlayerItem item = AVPlayerItem.FromAsset(av);
 
-            player = new AVAudioPlayer(url, "m4a", out err);
+            //player = new AVAudioPlayer(url, "m4a", out err);
+            player = AVAudioPlayer.FromUrl(url, out err);
 
             if (player != null)
             {
@@ -59,12 +67,13 @@ namespace GigaHitz.iOS
 
         public bool Prepare(string filePath, int channel)
         {
-            if (_e != null)
+            if (_e != null && player != null)
                 player.FinishedPlaying -= _e;
-            var url = new NSUrl("scales/" + filePath + ".mp3");
+            //var url = new NSUrl("scales/" + filePath + ".mp3", false);
+            var url = NSUrl.FromFilename("scales/" + filePath + ".mp3");
 
-            player = new AVAudioPlayer(url, "mp3", out err);
-            //player = AVAudioPlayer.FromUrl(url, out err);
+            player = AVAudioPlayer.FromUrl(url, out err);
+
             if (player != null)
             {
                 player.Volume = maxVolume;
@@ -79,7 +88,7 @@ namespace GigaHitz.iOS
             }
         }
 
-        public void Release()
+        public bool Release()
         {
             if (player != null)
             {
@@ -89,6 +98,7 @@ namespace GigaHitz.iOS
                     player.Stop();
                 player = null;
             }
+            return false;
         }
 
         public void SeekTo(double sec)

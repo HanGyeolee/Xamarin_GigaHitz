@@ -20,6 +20,6 @@ namespace GigaHitz.Interfaces
         // seekto(msec) T=int32
         void SeekTo(double sec);
         void Stop();
-        void Release();
+        bool Release();
     }
 }

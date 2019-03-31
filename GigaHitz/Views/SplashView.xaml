@@ -3,15 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.SplashView"
              BackgroundColor="Black">
-    <StackLayout Spacing="0"
-                 BackgroundColor="Transparent">
+    <AbsoluteLayout BackgroundColor="Transparent">
         <BoxView Color="{StaticResource UpperColor}"
                  VerticalOptions="FillAndExpand"
-                 HorizontalOptions="FillAndExpand"/>
-        <Image Source="Logo.png"
-               Aspect="AspectFit"/>
+                 HorizontalOptions="FillAndExpand"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.5"/>
         <BoxView Color="{StaticResource LowerColor}"
                  VerticalOptions="FillAndExpand"
-                 HorizontalOptions="FillAndExpand"/>
-    </StackLayout>
+                 HorizontalOptions="FillAndExpand"
+                 AbsoluteLayout.LayoutFlags="All"
+                 AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"/>
+        <Image Source="Logo.png"
+               Aspect="AspectFit"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"/>
+        <ProgressBar x:Name="progress"
+                     HeightRequest="4"
+                     Margin="0"
+                     ProgressColor="{StaticResource UpperColor}"
+                     VerticalOptions="End"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.03125"/>
+        <!-- TODO Change the Number when update the code. -->
+        <Label  Text="2.1.5:14"
+                TextColor="White"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.125"/>
+    </AbsoluteLayout>
 </ContentView>

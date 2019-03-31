@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.App;
 using Xamarin.Forms;
@@ -10,7 +11,7 @@ namespace GigaHitz.Droid
     {
         private static Activity instance;
 
-        public void Share(string filePath)
+        public Task<bool> Share(string filePath)
         {
             var intent = new Intent(Intent.ActionSend);
             intent.SetType("audio/aac");
@@ -18,12 +19,15 @@ namespace GigaHitz.Droid
             {
                 intent.SetPackage("com.kakao.talk");
             }
-            finally
+            catch (Exception)
             {
-                var intentChooser = Intent.CreateChooser(intent, "공유");
-
-                instance.StartActivity(intentChooser);
+                return Task.FromResult<bool>(false);
             }
+
+            var intentChooser = Intent.CreateChooser(intent, "공유");
+            instance.StartActivity(intentChooser);
+
+            return Task.FromResult<bool>(true);
         }
 
         public static void Init(Activity activity)
