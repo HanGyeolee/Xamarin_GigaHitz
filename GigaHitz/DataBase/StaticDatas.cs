@@ -10,101 +10,84 @@ using Xamarin.Forms;
 
 namespace GigaHitz.DataBase
 {
+    public class AppVersion
+    {
+        public string Name { get; set; } = "2.1.5";
+        public int Numb { get; set; } = 17;
+    }
+
     public static class StaticDatas
     {
         public static IPianoSound PianoSound { get; private set; } = DependencyService.Get<IPianoSound>();
         public static ISoundEffect SoundEffect { get; private set; } = DependencyService.Get<ISoundEffect>();
         public static IShare Share { get; private set; } = DependencyService.Get<Interfaces.IShare>();
-        public static List<string> Uris { get; private set; }
+        public static List<string> PreUrls { get; private set; }
+        public static List<string> Urls { get; private set; }
         public static short Num { get; private set; } = 0;
-        public static short NumPosterOpened { get; private set; } = 0;
+        public static short NumPosterOpened { get; private set; } = 10;
 
         readonly static int sleep = 2;
-        readonly private static string CheckVersionUrl = "https://gigahitz-41617.firebaseio.com/Config/UpdatedVersion.json";
-        readonly private static string CheckPosterUrl  = "https://gigahitz-41617.firebaseio.com/Config/PosterNum.json";
-        readonly private static string PosterUrl       = "https://gigahitz.page.link/";
 
         public static void Init(IProgress<double> progress)
         {
-
             soundLoad(); // metronome sound load
-            progress.Report(33);
-            var b = Load().Result;
-            progress.Report(66);
+            progress.Report(25);
+            Load().Start();
+            progress.Report(50); 
             CheckPosterNum(); // get poster number from firebase database
+            progress.Report(75);
+            InitializePreUrls();
             progress.Report(100);
         }
 
         // Initialize Image
-        public static async Task<short> InitializeUris(CancellationToken token)
+        public static async Task<short> InitializeUrls(CancellationToken token)
         {
             if (Num > 0)
             {
-                Uris = null;
+                Urls = null;
                 var i = Num;
-                if (Num <= 10)
+
+                Urls = new List<string>(NumPosterOpened);
+                while (i > Num - NumPosterOpened)
                 {
-                    Uris = new List<string>(Num);
-                    while (i > 0)
+                    try
                     {
-                        try
-                        {
-                            token.ThrowIfCancellationRequested();
-                        }
-                        catch(Exception)
-                        {
-                            return 1; // cancel
-                        }
-                        await Task.Delay(5);
-                        if (NetworkInterface.GetIsNetworkAvailable())
-                            //get Unshorten URI of poster from shorten URI
-                            Uris.Add(GetPosterUrl(i--));
-                        else
-                            return -1; // 인터넷 연결 실패 // Task.FromResult<bool>(false);
+                        token.ThrowIfCancellationRequested();
                     }
-                }
-                else
-                {
-                    Uris = new List<string>(10);
-                    while (i > Num - 10)
+                    catch (Exception)
                     {
-                        try
-                        {
-                            token.ThrowIfCancellationRequested();
-                        }
-                        catch (Exception)
-                        {
-                            return 1; // cancel
-                        }
-                        await Task.Delay(5);
-                        if (NetworkInterface.GetIsNetworkAvailable())
-                            //get Unshorten URI of poster from shorten URI
-                            Uris.Add(GetPosterUrl(i--));
-                        else
-                            return -1; //Task.FromResult<bool>(false);
+                        return 1; // cancel
                     }
+                    await Task.Delay(250);
+                    if (NetworkInterface.GetIsNetworkAvailable())
+                        //get Unshorten URI of poster from shorten URI
+                        Urls.Add(GetPosterUrl(i--));
+                    else
+                        return -1; //Task.FromResult<bool>(false);
                 }
             }
+
             return 0; // 정상종료 //Task.FromResult<bool>(true);
         }
 
         /*
         // Initialize Image
-        public static Task<bool> InitializeUris(ref IProgress<double> progress)
+        public static Task<bool> InitializeUrls(ref IProgress<double> progress)
         {
             if (Num > 0)
             {
-                Uris = null;
+                Urls = null;
                 var i = Num;
                 if (Num <= 10)
                 {
-                    Uris = new List<string>(Num);
+                    Urls = new List<string>(Num);
                     while (i > 0)
                     {
                         progress.Report((1 - (i / (double)Num)) * 80 + 20);
                         if (NetworkInterface.GetIsNetworkAvailable())
                             //get Unshorten URI of poster from shorten URI
-                            Uris.Add(GetPosterUrl(i--));
+                            Urls.Add(GetPosterUrl(i--));
                         else
                             return Task.FromResult<bool>(false);
                     }
@@ -112,13 +95,13 @@ namespace GigaHitz.DataBase
                 else
                 {
                     int j = 0;
-                    Uris = new List<string>(10);
+                    Urls = new List<string>(10);
                     while (i > Num - 10)
                     {
                         progress.Report(j++ / 10.0 * 80 + 20);
                         if (NetworkInterface.GetIsNetworkAvailable())
                             //get Unshorten URI of poster from shorten URI
-                            Uris.Add(GetPosterUrl(i--));
+                            Urls.Add(GetPosterUrl(i--));
                         else
                             return Task.FromResult<bool>(false);
                     }
@@ -129,38 +112,65 @@ namespace GigaHitz.DataBase
         //*/
 
         // Retire Image Uri
-        public static Task<bool> RetireUris()
+        public static async Task<short> RetireUrls(CancellationToken token)
         {
             if (Num > 0)
             {
                 var i = Num;
-                var buf = Uris.Capacity;
+                var buf = Urls.Capacity;
+                // if buf == Num, doesn't work
                 if (i <= 10)
                 {
-                    Uris.Capacity = Num;
-                    while (i > buf)
+                    for(var j = 1; j <= buf - Num; j++) // if buf > Num, delete last of buf
+                        Urls.RemoveAt(buf - j);
+
+                    while (i > buf) // if Num > buf
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+                        }
+                        catch (Exception)
+                        {
+                            return 1; // cancel
+                        }
+                        await Task.Delay(250);
+
                         if (NetworkInterface.GetIsNetworkAvailable())
                             //get Unshorten URI of poster from shorten URI
-                            Uris.Insert(Num - i, GetPosterUrl(i--));
+                            Urls.Insert(Num - i, GetPosterUrl(i--));
                         else
-                            return Task.FromResult<bool>(false);
+                            return -1;
+                    }
                 }
                 else
                 {
                     while (i > 10)
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+                        }
+                        catch (Exception)
+                        {
+                            return 1; // cancel
+                        }
+                        await Task.Delay(250);
+
                         if (NetworkInterface.GetIsNetworkAvailable())
                         {
                             //Remove item at last
-                            Uris.RemoveAt(9);
+                            Urls.RemoveAt(9);
                             //get Unshorten URI of poster from shorten URI
                             //Insert item at first
-                            Uris.Insert(Num - i, GetPosterUrl(i--));
+                            Urls.Insert(Num - i, GetPosterUrl(i--));
                         }
                         else
-                            return Task.FromResult<bool>(false);
+                            return -1;
+                    }
                 }
             }
-            return Task.FromResult<bool>(true);
+            return 0;
         }
 
         // get poster number from firebase database
@@ -171,40 +181,101 @@ namespace GigaHitz.DataBase
             try
             {
                 if (NetworkInterface.GetIsNetworkAvailable())
-                    Num = Convert.ToInt16(client.DownloadString(CheckPosterUrl));
+                    //TODO
+                    Num = Convert.ToInt16(client.DownloadString("https://gigahitz-41617.firebaseio.com/Config/PosterNum.json"));
                 else
                     throw new Exception();
             }
             catch (Exception)
             {
-                Num = 8;
+                Num = 10;
             }
-            if (Num <= 10)
-                NumPosterOpened = Num;
-            else
-                NumPosterOpened = 10;
-
             return Num;
+        }
+
+        public static string CheckNotice()
+        {
+            string not;
+            var client = new WebClient();
+            try
+            {
+                if (NetworkInterface.GetIsNetworkAvailable())
+                    //TODO
+                    not = client.DownloadString("https://gigahitz-41617.firebaseio.com/Config/Notice.json");
+                else
+                    throw new Exception();
+
+                not = not.Split('\"')[1];
+            }
+            catch (Exception)
+            {
+                not = "0";
+            }
+
+            return not;
         }
 
         //get shorten uri
         private static string GetPosterUrl(int index)
         {
-            var client = new WebClient();
-
-            var addr = PosterUrl + index.ToString();
+            //TODO
+            var response = WebRequest.Create("https://gigahitz.page.link/" + index.ToString()).GetResponse();
 
             string uri;
             try
             {
                 //unshortener method
-                uri = WebRequest.Create(addr).GetResponse().ResponseUri.AbsoluteUri;
+                uri = response.ResponseUri.AbsoluteUri;
             }
             catch(Exception)
             {
-                return null;
+                response.Close();
+                return "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chess_xxt45.svg/1024px-Chess_xxt45.svg.png";
             }
 
+            response.Close();
+            return uri;
+        }
+
+        // Initialize Image
+        public static bool InitializePreUrls()
+        {
+            if (Num > 0)
+            {
+                PreUrls = null;
+                var i = Num;
+
+                PreUrls = new List<string>(NumPosterOpened);
+                while (i > Num - NumPosterOpened)
+                {
+                    if (NetworkInterface.GetIsNetworkAvailable())
+                        //get Unshorten URI of poster from shorten URI
+                        PreUrls.Add(GetPrePosterUrl(i--));
+                    else
+                        PreUrls.Add("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chess_xxt45.svg/1024px-Chess_xxt45.svg.png");
+                }
+            }
+            return true; // 정상종료 
+        }
+
+        private static string GetPrePosterUrl(int index)
+        {
+            //TODO
+            var response = WebRequest.Create("https://gigahitz.page.link/pre" + index.ToString()).GetResponse();
+
+            string uri;
+            try
+            {
+                //unshortener method
+                uri = response.ResponseUri.AbsoluteUri;
+            }
+            catch (Exception)
+            {
+                response.Close();
+                return "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chess_xxt45.svg/1024px-Chess_xxt45.svg.png";
+            }
+
+            response.Close();
             return uri;
         }
 
@@ -217,7 +288,8 @@ namespace GigaHitz.DataBase
                 //인터넷 연결확인
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    var buf = client.DownloadString(CheckVersionUrl);
+                    //TODO
+                    var buf = client.DownloadString("https://gigahitz-41617.firebaseio.com/Config/UpdatedVersion.json");
                     UpdatedVersion = buf.Split(':')[1]; // get Version in ":2.1.4:13:" from firebase database
                     UpdatedBuildVersion = Convert.ToInt32(buf.Split(':')[2]); // get Build Version in ":2.1.4:13:" from firebase database
                 }
@@ -301,7 +373,6 @@ namespace GigaHitz.DataBase
             Thread.Sleep(sleep);
             PianoSound.AddSystemSound("Ti3");
             Thread.Sleep(sleep);
-
             #endregion
 
             return await Task.FromResult<bool>(true);

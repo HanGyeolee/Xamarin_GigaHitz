@@ -26,7 +26,7 @@
                      AbsoluteLayout.LayoutFlags="All"
                      AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.03125"/>
         <!-- TODO Change the Number when update the code. -->
-        <Label  Text="2.1.5:14"
+        <Label  x:Name="version"  
                 TextColor="White"
                 HorizontalOptions="Center"
                 VerticalOptions="End"

@@ -193,11 +193,17 @@ namespace GigaHitz.Views
                 {
                     int kbps;
                     float rate;
-                    dB.GetContent();
-                    dB.Read(out kbps);
+                    kbps = int.Parse(dB.ReadIndexOf(0));
+                    //dB.Read(out kbps);
                     recorder.SetBitRate(kbps);
-                    dB.Read(out rate);
+                    rate = float.Parse(dB.ReadIndexOf(1));
+                    //dB.Read(out rate);
                     recorder.SetSampleRate(rate);
+                }
+                else
+                {
+                    recorder.SetBitRate(256);
+                    recorder.SetSampleRate(44100f);
                 }
 
                 if (recorder.Setting(filePath))

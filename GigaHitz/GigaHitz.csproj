@@ -20,7 +20,6 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Views\etcContent\" />
     <Folder Include="Views\RecordContent\" />
-    <Folder Include="Views\NoticeContent\" />
     <Folder Include="Interfaces\" />
     <Folder Include="TouchApi\" />
     <Folder Include="DataBase\" />
@@ -36,6 +35,7 @@
     <Compile Remove="ViewModel\ExLabel.cs" />
     <Compile Remove="ViewModel\RecordViewCell %28복사본%29.cs" />
     <Compile Remove="Assembly\CustomStepperRenderer.cs" />
+    <Compile Remove="DataBase\DBFire.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />

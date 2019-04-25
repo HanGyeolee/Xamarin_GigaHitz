@@ -29,7 +29,7 @@ namespace GigaHitz.Views
             Absolute.Children.Add(splash, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
             // Start Coroutine to Fadeout and delete
             //*/
-            StartCoroutine(Check);
+            Check();
         }
 
         // Check Update
@@ -38,9 +38,9 @@ namespace GigaHitz.Views
             string UpdatedVersion;
             int UpdatedBuildVersion, ret;
 
+            var av = new AppVersion();
             // inserting reference is current Version 
-            // TODO Change the Number when update the code.
-            ret = StaticDatas.CheckVersion("2.1.5", 14, out UpdatedVersion, out UpdatedBuildVersion);
+            ret = StaticDatas.CheckVersion(av.Name, av.Numb, out UpdatedVersion, out UpdatedBuildVersion);
             if (ret != -1)
             {
                 if (ret == 0) // 업데이트 버전이 현재 버젼보다 높을 경우
@@ -84,9 +84,59 @@ namespace GigaHitz.Views
             LocalDB dB = new LocalDB();
             if (!dB.IsExist())
             {
-                dB.AddItem(256);       //kbps
-                dB.AddItem(44100f);   //rate
-                dB.Write();
+                var s = StaticDatas.CheckNotice();
+                if (s.Length > 3)
+                {
+                    Device.BeginInvokeOnMainThread(async delegate
+                    {
+                        var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                        dB.AddItem(256);       //kbps
+                        dB.AddItem(44100f);   //rate
+                        dB.AddItem(s);
+                        dB.AddItem(b); // true = dont pop again, false = pass
+                        dB.Write();
+                    });
+                }
+            }
+            else
+            {
+                int k;
+                float r;
+                bool boolean;
+
+                dB.Read(out k, 0);
+                dB.Read(out r, 1);
+                var s_tmp = dB.ReadIndexOf(2);
+                dB.Read(out boolean, 3);
+
+                var s = StaticDatas.CheckNotice();
+                if (s.Length > 3) // if not, notice not exist.
+                {
+                    if (!s.Equals(s_tmp)) // another notice
+                    {
+                        Device.BeginInvokeOnMainThread(async delegate
+                        {
+                            var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                            dB.AddItem(k);
+                            dB.AddItem(r);
+                            dB.AddItem(s);
+                            dB.AddItem(b); // true = dont pop again, false = pass
+                            dB.Write();
+                        });
+                    }
+                    else if (!boolean) // same notice // check boolean
+                    {
+                        Device.BeginInvokeOnMainThread(async delegate
+                        {
+                            var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                            dB.AddItem(k);
+                            dB.AddItem(r);
+                            dB.AddItem(s);
+                            dB.AddItem(b); // true = dont pop again, false = pass
+                            dB.Write();
+                        });
+                    }
+                }
             }
 
             //FadeOut and remove View

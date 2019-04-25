@@ -46,7 +46,7 @@ namespace GigaHitz.iOS
             //TODO check err
             var url = NSUrl.FromFilename(filePath); // can't
             AVAsset av = AVAsset.FromUrl(url);
-            AVPlayerItem item = AVPlayerItem.FromAsset(av);
+            item = AVPlayerItem.FromAsset(av);
 
             //player = new AVAudioPlayer(url, "m4a", out err);
             player = AVAudioPlayer.FromUrl(url, out err);

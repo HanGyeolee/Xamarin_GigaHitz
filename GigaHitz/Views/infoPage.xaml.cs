@@ -19,6 +19,14 @@ namespace GigaHitz.Views
             On<iOS>().SetUseSafeArea(true);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
+            var tapGR = new TapGestureRecognizer();
+            tapGR.Tapped += (sender, e) =>
+            {
+                Clipboard.SetTextAsync("gigahitz.app@gmail.com");
+            };
+
+            email.GestureRecognizers.Add(tapGR);
         }
 
         async void Btn_Back(object sender, EventArgs s)

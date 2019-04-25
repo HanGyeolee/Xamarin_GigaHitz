@@ -27,7 +27,7 @@ using Android.App;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.1.5.*")]
-[assembly: AssemblyFileVersion("2.1.5.14")]
+[assembly: AssemblyFileVersion("2.1.5.17")]
 
 // Add some common permissions, these can be removed if not needed
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]

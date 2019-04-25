@@ -50,6 +50,15 @@
                                AbsoluteLayout.LayoutBounds="0, 0, 1, 0.9453125"
                                AbsoluteLayout.LayoutFlags="All">
                             <Image.Source>
+                                <UriImageSource Uri="{Binding BackSource}"
+                                                CachingEnabled="true"/>
+                            </Image.Source>
+                        </Image>
+                        <Image Margin="10"
+                               Aspect="AspectFit"
+                               AbsoluteLayout.LayoutBounds="0, 0, 1, 0.9453125"
+                               AbsoluteLayout.LayoutFlags="All">
+                            <Image.Source>
                                 <UriImageSource Uri="{Binding Source}"
                                                 CachingEnabled="true"/>
                             </Image.Source>

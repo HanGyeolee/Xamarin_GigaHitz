@@ -16,7 +16,7 @@ namespace GigaHitz.Views.RecordContent
         public OptionPage()
         {
             int kbps = 256;
-            float rate = 44100;
+            float rate = 44100f;
 
             InitializeComponent();
 
@@ -40,10 +40,11 @@ namespace GigaHitz.Views.RecordContent
 
                 if (dB.IsExist()) // 존재 할 떄
                 {
-                    dB.GetContent();
-                    dB.Read(out kbps);
+                    kbps = int.Parse(dB.ReadIndexOf(0));
+                    //dB.Read(out kbps);
                     BitsStep.Value = SetBitsValue(kbps);
-                    dB.Read(out rate);
+                    rate = float.Parse(dB.ReadIndexOf(1));
+                    //dB.Read(out rate);
                     RateStep.Value = SetRateValue(rate);
                 }
 
@@ -61,10 +62,11 @@ namespace GigaHitz.Views.RecordContent
 
                 if (dB.IsExist()) // 존재 할 떄
                 {
-                    dB.GetContent();
-                    dB.Read(out kbps);
+                    kbps = int.Parse(dB.ReadIndexOf(0));
+                    //TODO
                     BitsStep.Value = SetBitsValue(kbps);
-                    dB.Read(out rate);
+                    rate = float.Parse(dB.ReadIndexOf(1));
+                    //TODO
                     RateStep.Value = SetRateValue(rate);
                 }
 
@@ -190,8 +192,23 @@ namespace GigaHitz.Views.RecordContent
 
         Task<bool> SetDB()
         {
+            dB.ClearItem();
             dB.AddItem(int.Parse(BitsValue.Text));            //kbps
             dB.AddItem<float>(int.Parse(RateValue.Text));     //rate
+            if (dB.IsExist())
+            {
+                dB.AddItem(dB.ReadIndexOf(2)); // string
+                bool b;
+                dB.Read(out b, 3);
+                dB.AddItem(b); // boolean
+            }
+            else
+            {
+                var s = StaticDatas.CheckNotice();
+                if (s.Length > 3)
+                    dB.AddItem(s);
+                dB.AddItem(true);
+            }
             dB.Write();
             return Task.FromResult<bool>(true);
         }

@@ -5,9 +5,8 @@ using Android.App;
 using Android.Gms.Common;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Support.V7.Widget;
-using Firebase.Messaging;
-using CarouselView.FormsPlugin;
+//using Android.Support.V7.Widget;
+//using CarouselView.FormsPlugin;
 
 namespace GigaHitz.Droid
 {

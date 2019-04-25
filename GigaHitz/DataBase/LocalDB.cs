@@ -7,7 +7,7 @@ namespace GigaHitz.DataBase
 {
     public class LocalDB
     {
-        string filename;
+        readonly string filename;
         string line;
         string text;
         List<string> tmp;
@@ -18,9 +18,34 @@ namespace GigaHitz.DataBase
             filename = Path.Combine(document, "Option.txt");
         }
 
+        private bool GetContent()
+        {
+            if (filename != null)
+                text = File.ReadAllText(filename);
+            if (text != null)
+            {
+                tmp = new List<string>(text.Split(','));
+                return true;
+            }
+            return false;
+        }
+
         public bool IsExist()
         {
-            return File.Exists(filename);
+            if (File.Exists(filename))
+            {
+                GetContent();
+                if (tmp.Count < 4)
+                    return false;
+
+                return true;
+            }
+            return false;
+        }
+
+        public void ClearItem()
+        {
+            line = null;
         }
 
         public void AddItem<T>(T param)
@@ -37,31 +62,19 @@ namespace GigaHitz.DataBase
                 File.WriteAllText(filename, line);
         }
 
-        public void GetContent()
-        {
-            if (filename != null && text == null)
-                text = File.ReadAllText(filename);
-            if (text != null)
-            {
-                tmp = new List<string>(text.Split(','));
-            }
-        }
-
-        public bool Read(out int param)
+        public bool Read(out int param, int index = 0)
         {
             if(tmp != null)
             {
                 try
                 {
-                    param = int.Parse(tmp[0]);
+                    param = int.Parse(tmp[index]);
                 }
                 catch(Exception)
                 {
                     param = -1;
                     return false;
                 }
-
-                tmp.RemoveAt(0);
                 return true;
             }
 
@@ -69,21 +82,19 @@ namespace GigaHitz.DataBase
             return false;
         }
 
-        public bool Read(out float param)
+        public bool Read(out float param, int index = 0)
         {
             if (tmp != null)
             {
                 try
                 {
-                    param = float.Parse(tmp[0]);
+                    param = float.Parse(tmp[index]);
                 }
                 catch (Exception)
                 {
                     param = float.NaN;
                     return false;
                 }
-
-                tmp.RemoveAt(0);
                 return true;
             }
 
@@ -91,26 +102,69 @@ namespace GigaHitz.DataBase
             return false;
         }
 
-        public bool Read(out double param)
+        public bool Read(out double param, int index = 0)
         {
             if (tmp != null)
             {
                 try
                 {
-                    param = double.Parse(tmp[0]);
+                    param = double.Parse(tmp[index]);
                 }
                 catch (Exception)
                 {
                     param = double.NaN;
                     return false;
                 }
-
-                tmp.RemoveAt(0);
                 return true;
             }
 
             param = double.NaN;
             return false;
+        }
+
+        public bool Read(out bool param, int index = 0)
+        {
+            if (tmp != null)
+            {
+                try
+                {
+                    param = bool.Parse(tmp[index]);
+                }
+                catch (Exception)
+                {
+                    param = false;
+                    return false;
+                }
+                return true;
+            }
+
+            param = false;
+            return false;
+        }
+
+        public bool Read(out string param, int index = 0)
+        {
+            if (tmp != null)
+            {
+                try
+                {
+                    param = tmp[index];
+                }
+                catch (Exception)
+                {
+                    param = null;
+                    return false;
+                }
+                return true;
+            }
+
+            param = null;
+            return false;
+        }
+
+        public string ReadIndexOf(int index)
+        {
+            return tmp[index];
         }
     }
 }

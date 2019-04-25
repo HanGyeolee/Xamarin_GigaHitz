@@ -73,7 +73,9 @@
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Feedback At"
                        Style="{StaticResource TitleLabel}"/>
-                <Label Text="gigahitz.app@gmail.com &#10;"
+                <Label x:Name="email"
+                       TextDecorations="Underline"
+                       Text="gigahitz.app@gmail.com &#10;"
                        Style="{StaticResource ContentLabel}"/>
             </StackLayout>
         </StackLayout>
