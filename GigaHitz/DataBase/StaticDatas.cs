@@ -10,10 +10,10 @@ using Xamarin.Forms;
 
 namespace GigaHitz.DataBase
 {
-    public class AppVersion
+    public static class AppVersion
     {
-        public string Name { get; set; } = "2.1.5";
-        public int Numb { get; set; } = 17;
+        public static string Name { get; private set; } = "2.1.5";
+        public static int Numb { get; private set; } = 19;
     }
 
     public static class StaticDatas
@@ -32,7 +32,7 @@ namespace GigaHitz.DataBase
         {
             soundLoad(); // metronome sound load
             progress.Report(25);
-            Load().Start();
+            var a = Load().Result;
             progress.Report(50); 
             CheckPosterNum(); // get poster number from firebase database
             progress.Report(75);
@@ -280,7 +280,7 @@ namespace GigaHitz.DataBase
         }
 
         //Check Version
-        public static int CheckVersion(string CurrentVersion ,int BuildVersion , out string UpdatedVersion, out int UpdatedBuildVersion)
+        public static int CheckVersion(out string UpdatedVersion, out int UpdatedBuildVersion)
         {
             try
             {
@@ -298,22 +298,22 @@ namespace GigaHitz.DataBase
             }
             catch (Exception)
             {
-                UpdatedVersion = CurrentVersion;
-                UpdatedBuildVersion = BuildVersion;
+                UpdatedVersion = AppVersion.Name;
+                UpdatedBuildVersion = AppVersion.Numb;
                 return -1; // 인터넷 연결 안됨
             }
 
-            if (UpdatedBuildVersion > BuildVersion)  //Updated file exist
+            if (UpdatedBuildVersion > AppVersion.Numb)  //Updated file exist
             {
                 return 0; // 현재 버전이 업데이트 버전보다 낮을 경우
             }
-            else if(UpdatedBuildVersion < BuildVersion)
+            else if(UpdatedBuildVersion < AppVersion.Numb)
             {
                 return 1; // 현재 버전이 업데이트 버전보다 높을 경우 // 테스트 중
             }
 
-            UpdatedVersion = CurrentVersion;
-            UpdatedBuildVersion = BuildVersion;
+            UpdatedVersion = AppVersion.Name;
+            UpdatedBuildVersion = AppVersion.Numb;
             return -1; // 현재 버전과 업데이트 버전이 동일할 경우
         }
 

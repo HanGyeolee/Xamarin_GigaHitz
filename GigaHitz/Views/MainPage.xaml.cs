@@ -29,7 +29,8 @@ namespace GigaHitz.Views
             Absolute.Children.Add(splash, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
             // Start Coroutine to Fadeout and delete
             //*/
-            Check();
+
+            StartCoroutine(Check);
         }
 
         // Check Update
@@ -38,9 +39,8 @@ namespace GigaHitz.Views
             string UpdatedVersion;
             int UpdatedBuildVersion, ret;
 
-            var av = new AppVersion();
             // inserting reference is current Version 
-            ret = StaticDatas.CheckVersion(av.Name, av.Numb, out UpdatedVersion, out UpdatedBuildVersion);
+            ret = StaticDatas.CheckVersion(out UpdatedVersion, out UpdatedBuildVersion);
             if (ret != -1)
             {
                 if (ret == 0) // 업데이트 버전이 현재 버젼보다 높을 경우
@@ -52,9 +52,9 @@ namespace GigaHitz.Views
                         if (await DisplayAlert("업데이트", str, "업데이트", "나중에"))
                         {
                             if (Device.RuntimePlatform.Equals(Device.Android)) // google play store
-                            await Browser.OpenAsync("https://play.google.com/store/apps/details?id=com.moment.GigaHitz", BrowserLaunchMode.External);
+                                await Browser.OpenAsync("https://play.google.com/store/apps/details?id=com.moment.GigaHitz", BrowserLaunchMode.External);
                             else                                              // One Store
-                            await Browser.OpenAsync("https://play.google.com/store/apps/details?id=com.moment.GigaHitz", BrowserLaunchMode.External);
+                                await Browser.OpenAsync("https://play.google.com/store/apps/details?id=com.moment.GigaHitz", BrowserLaunchMode.External);
                         }
                         else
                             StartCoroutine(FadeOut);
@@ -89,7 +89,7 @@ namespace GigaHitz.Views
                 {
                     Device.BeginInvokeOnMainThread(async delegate
                     {
-                        var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                        var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
                         dB.AddItem(256);       //kbps
                         dB.AddItem(44100f);   //rate
                         dB.AddItem(s);
@@ -116,7 +116,7 @@ namespace GigaHitz.Views
                     {
                         Device.BeginInvokeOnMainThread(async delegate
                         {
-                            var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                            var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
                             dB.AddItem(k);
                             dB.AddItem(r);
                             dB.AddItem(s);
@@ -128,7 +128,7 @@ namespace GigaHitz.Views
                     {
                         Device.BeginInvokeOnMainThread(async delegate
                         {
-                            var b = await DisplayAlert("오류 경고", s, "다시보지 않기", "넵");
+                            var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
                             dB.AddItem(k);
                             dB.AddItem(r);
                             dB.AddItem(s);

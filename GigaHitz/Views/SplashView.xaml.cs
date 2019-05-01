@@ -9,8 +9,7 @@ namespace GigaHitz.Views
         {
             InitializeComponent();
 
-            var av = new AppVersion();
-            version.Text = av.Name + ":" + av.Numb;
+            version.Text = AppVersion.Name + ":" + AppVersion.Numb;
         }
 
         public ProgressBar Progress
