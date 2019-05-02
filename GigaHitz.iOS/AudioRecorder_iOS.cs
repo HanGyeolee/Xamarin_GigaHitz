@@ -82,7 +82,7 @@ namespace GigaHitz.iOS
 
             var settings = new AudioSettings()
             {
-                Format = AudioToolbox.AudioFormatType.MPEG4AAC,
+                Format = AudioToolbox.AudioFormatType.AppleLossless,
                 AudioQuality = AVAudioQuality.High,
                 EncoderBitRate = BitsPerSec, //bits per sec
                 SampleRate = SRate,

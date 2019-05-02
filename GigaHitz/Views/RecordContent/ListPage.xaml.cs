@@ -70,7 +70,8 @@ namespace GigaHitz.Views.RecordContent
         void Load()
         {
             string title, time, day, creationTime;
-            var filePath = Directory.GetFiles(path, "*.m4a");
+            string[] filePath;
+            filePath = Directory.GetFiles(path, "*.m4a");
             
             foreach (string namepath in filePath)
             {

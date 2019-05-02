@@ -11,7 +11,7 @@ namespace GigaHitz.iOS
     public class AudioPlayer_iOS : Interfaces.IAudioPlayer
     {
         AVAudioPlayer player;
-        AVPlayerItem item;
+        //AVPlayerItem item;
         NSError err;
         EventHandler<AVStatusEventArgs> _e;
 
@@ -30,6 +30,7 @@ namespace GigaHitz.iOS
                 return 0;
         }
 
+        //sec
         public double GetCurrentTime()
         {
             if (player != null)
@@ -42,13 +43,13 @@ namespace GigaHitz.iOS
         {
             if (_e != null && player != null)
                 player.FinishedPlaying -= _e;
-            //var url = new NSUrl(filePath, false); // can't
-            //TODO check err
-            var url = NSUrl.FromFilename(filePath); // can't
-            AVAsset av = AVAsset.FromUrl(url);
-            item = AVPlayerItem.FromAsset(av);
 
-            //player = new AVAudioPlayer(url, "m4a", out err);
+            NSError nS;
+            
+            var url = NSUrl.FromFilename(filePath);
+            AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
+            AVAudioSession.SharedInstance().SetActive(true, out nS);
+
             player = AVAudioPlayer.FromUrl(url, out err);
 
             if (player != null)
@@ -69,8 +70,13 @@ namespace GigaHitz.iOS
         {
             if (_e != null && player != null)
                 player.FinishedPlaying -= _e;
-            //var url = new NSUrl("scales/" + filePath + ".mp3", false);
+
+            NSError nS;
+
             var url = NSUrl.FromFilename("scales/" + filePath + ".mp3");
+
+            AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
+            AVAudioSession.SharedInstance().SetActive(true, out nS);
 
             player = AVAudioPlayer.FromUrl(url, out err);
 

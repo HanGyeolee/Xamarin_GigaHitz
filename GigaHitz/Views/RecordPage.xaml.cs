@@ -182,7 +182,9 @@ namespace GigaHitz.Views
         async void Btn_Record(object sender, EventArgs s)
         {
             if (fileName.Length > 0)
+            {
                 filePath = Path.Combine(path, fileName + ".m4a");
+            }
             Device.BeginInvokeOnMainThread(delegate
             {
                 edit.Text = fileName;
