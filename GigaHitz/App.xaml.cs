@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 using GigaHitz.DataBase;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -22,6 +23,7 @@ namespace GigaHitz
 
         protected override void OnStart()
         {
+            ExperimentalFeatures.Enable(ExperimentalFeatures.ShareFileRequest);
             // Handle when your app starts
         }
 

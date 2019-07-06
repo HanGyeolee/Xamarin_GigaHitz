@@ -8,7 +8,6 @@ namespace GigaHitz.Views
         public SplashView()
         {
             InitializeComponent();
-
             version.Text = AppVersion.Name + ":" + AppVersion.Numb;
         }
 

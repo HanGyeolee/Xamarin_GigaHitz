@@ -39,8 +39,6 @@
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleShortVersionString</key>
-	<string>13</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -52,6 +50,13 @@
 		<string>microphone</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1.4</string>
+	<string>2.1.7</string>
+	<key>CFBundleShortVersionString</key>
+	<string>28</string>
+	<key>Information Property List</key>
+	<dict>
+		<key>GADApplicationIdentifier</key>
+		<string>ca-app-pub-8979507455037422~6237221313</string>
+	</dict>
 </dict>
 </plist>

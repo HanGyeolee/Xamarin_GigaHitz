@@ -2,9 +2,11 @@
 
 using Android.OS;
 using Android.App;
+using Android.Gms.Ads;
 using Android.Gms.Common;
 using Android.Content.PM;
 using Android.Runtime;
+
 //using Android.Support.V7.Widget;
 //using CarouselView.FormsPlugin;
 
@@ -26,6 +28,7 @@ namespace GigaHitz.Droid
             global::CarouselView.FormsPlugin.Android.CarouselViewRenderer.Init();
             global::GigaHitz.Droid.Share_Android.Init(this);
             global::GigaHitz.Droid.Api.PermissionRequest.Init(this);
+            MobileAds.Initialize(this, "ca-app-pub-8979507455037422~6910162825");
 
             IsPlayServicesAvailable();
 

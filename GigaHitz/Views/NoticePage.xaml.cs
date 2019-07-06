@@ -6,6 +6,7 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms;
 using GigaHitz.DataBase;
+using GigaHitz.Renderer;
 
 namespace GigaHitz.Views
 {
@@ -13,6 +14,7 @@ namespace GigaHitz.Views
     {
         public ObservableCollection<ImgSource> ImgUrl { get; set; }
         private Task check, getData;
+        private Interfaces.IAdBannerController controller;
         private CancellationTokenSource cts = new CancellationTokenSource();
         private CancellationTokenSource cts_get = new CancellationTokenSource();
         private CancellationTokenSource cts_data = new CancellationTokenSource();
@@ -20,8 +22,15 @@ namespace GigaHitz.Views
         public NoticePage()
         {
             InitializeComponent();
-
+            controller = DependencyService.Get<Interfaces.IAdBannerController>();
             ImgUrl = new ObservableCollection<ImgSource>();
+
+            //배너를 만들고 난 이후에 광고 주소 로드.
+            if (Device.RuntimePlatform.Equals(Device.Android))
+                controller.Load("ca-app-pub-8979507455037422/5430026785");
+            else if (Device.RuntimePlatform.Equals(Device.iOS))
+                controller.Load("ca-app-pub-8979507455037422/3571409388");
+            AdBanner.Size = AdBanner.Sizes.StandardBanner;
 
             ////status bar
             On<iOS>().SetUseSafeArea(true);

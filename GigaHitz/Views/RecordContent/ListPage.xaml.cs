@@ -6,9 +6,11 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using GigaHitz.PermissionApi;
 using GigaHitz.DataBase;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+
 
 //TODO 대대적인 수정이 필요 iOS에서는 아예 작동이 안되는 문제가 발생
 namespace GigaHitz.Views.RecordContent
@@ -242,7 +244,14 @@ namespace GigaHitz.Views.RecordContent
                 else if (action.Equals("제거")) //"削除"
                     await Delete();
                 else if (action.Equals("공유")) //"共有"
-                    await StaticDatas.Share.Share(selectedItem.filePath);
+                    await
+                ///*
+                Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = selectedItem.Title,
+                    File = new ShareFile(selectedItem.filePath)
+                });
+                //*/
             }
         }
 

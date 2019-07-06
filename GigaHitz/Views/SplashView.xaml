@@ -31,6 +31,6 @@
                 HorizontalOptions="Center"
                 VerticalOptions="End"
                 AbsoluteLayout.LayoutFlags="All"
-                AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.125"/>
+                AbsoluteLayout.LayoutBounds="0.5, 0.999998, 1, 0.125"/>
     </AbsoluteLayout>
 </ContentView>

@@ -19,6 +19,8 @@ namespace GigaHitz.Views
         {
             InitializeComponent();
 
+            StaticDatas.Load();
+
             ////status bar
             //On<iOS>().SetUseSafeArea(true);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
@@ -62,11 +64,13 @@ namespace GigaHitz.Views
                 }
                 else // 현재 버전이 업데이트 버전보다 높을 경우 // 테스트 중
                 {
+                    /*
                     Device.BeginInvokeOnMainThread(async delegate
                     {
                         await DisplayAlert("업데이트", "현재 테스트 중인 업데이트입니다.", "넵");
+                        //*/
                         StartCoroutine(FadeOut);
-                    });
+                    //});
                 }
             }
             else // 현재 버전이 업데이트 버전과 동일하거나 인터넷 오류인 경우
@@ -89,7 +93,7 @@ namespace GigaHitz.Views
                 {
                     Device.BeginInvokeOnMainThread(async delegate
                     {
-                        var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
+                        var b = await DisplayAlert("알림", s, "다시보지 않기", "넵");
                         dB.AddItem(256);       //kbps
                         dB.AddItem(44100f);   //rate
                         dB.AddItem(s);
@@ -116,7 +120,7 @@ namespace GigaHitz.Views
                     {
                         Device.BeginInvokeOnMainThread(async delegate
                         {
-                            var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
+                            var b = await DisplayAlert("알림", s, "다시보지 않기", "넵");
                             dB.AddItem(k);
                             dB.AddItem(r);
                             dB.AddItem(s);
@@ -128,7 +132,7 @@ namespace GigaHitz.Views
                     {
                         Device.BeginInvokeOnMainThread(async delegate
                         {
-                            var b = await DisplayAlert("공지 사항", s, "다시보지 않기", "넵");
+                            var b = await DisplayAlert("알림", s, "다시보지 않기", "넵");
                             dB.AddItem(k);
                             dB.AddItem(r);
                             dB.AddItem(s);
@@ -175,6 +179,8 @@ namespace GigaHitz.Views
 
         protected override bool OnBackButtonPressed()
         {
+            StaticDatas.PianoSound.Release();
+            StaticDatas.ReleasePianoSound();
             Process.GetCurrentProcess().CloseMainWindow();
             Process.GetCurrentProcess().Close();
             return base.OnBackButtonPressed();

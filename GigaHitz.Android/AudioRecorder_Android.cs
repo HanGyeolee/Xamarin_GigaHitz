@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using Android.Media;
@@ -12,11 +13,12 @@ namespace GigaHitz.Droid
         static int BitsPerSec = 256 * 1024;
         static int SRate = 44100;
 
-        public void Recording()
+        public void Recording(Action update)
         {
             if(recorder != null)
             {
                 recorder.Start();
+                new Task(update).Start();
             }
         }
        

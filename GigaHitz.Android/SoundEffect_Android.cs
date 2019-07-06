@@ -73,6 +73,8 @@ namespace GigaHitz.Droid
         public void Release()
         {
             sp.Release();
+            SoundId = null;
+            StreamId = null;
         }
     }
 }

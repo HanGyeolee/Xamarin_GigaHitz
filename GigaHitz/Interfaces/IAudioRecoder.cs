@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace GigaHitz.Interfaces
 {
@@ -7,7 +8,7 @@ namespace GigaHitz.Interfaces
         bool SetBitRate(int kbps);
         bool SetSampleRate(float rate);
         bool Setting(string filePath);
-        void Recording();
+        void Recording(Action update);
         void Stop();
         void Reset();
         void Release();

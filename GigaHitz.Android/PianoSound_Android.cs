@@ -23,7 +23,7 @@ namespace GigaHitz.Droid
             if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 AudioAttributes attr = new AudioAttributes.Builder()
-                    .SetUsage(AudioUsageKind.Game)
+                    .SetUsage(AudioUsageKind.Media)
                     .SetContentType(AudioContentType.Sonification)
                     .Build();
                 sp = new SoundPool.Builder()
@@ -33,7 +33,7 @@ namespace GigaHitz.Droid
             }
             else
 #pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
-                sp = new SoundPool(Index, Android.Media.Stream.System, 0);
+                sp = new SoundPool(Index, Android.Media.Stream.Music, 0);
 #pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
 
             count = 0;
@@ -46,9 +46,13 @@ namespace GigaHitz.Droid
         public bool Play(int Index)
         {
             if (Index < count)
-                StreamId[Index] = sp.Play(SoundId[Index], 1, 1, 0, 0, 1);
+            {
+                if (SoundId[Index] != 0) StreamId[Index] = sp.Play(SoundId[Index], 1, 1, 0, 0, 1);
+            }
             else
-                StreamId[count - 1] = sp.Play(SoundId[count - 1], 1, 1, 0, 0, 1);
+            {
+                if (SoundId[count - 1] != 0) StreamId[count - 1] = sp.Play(SoundId[count - 1], 1, 1, 0, 0, 1);
+            }
             return true;
         }
 
@@ -60,18 +64,33 @@ namespace GigaHitz.Droid
             sp.SetVolume(SoundId[count++], 1, 1);
         }
 
+        public void AddSystemSound(string filePath, int index)
+        {
+            string path = Path.Combine("sounds", filePath + ".mp3");
+            var afd = asset.OpenFd(path);
+            SoundId[index] = sp.Load(afd, 1);
+            sp.SetVolume(SoundId[index], 1, 1);
+            count++;
+        }
+
         public async Task<bool> Stop(int Index)
         {
             if (Index < count)
-                sp.Stop(StreamId[Index]);
+            {
+                if (StreamId[Index] != 0) sp.Stop(StreamId[Index]);
+            }
             else
-                sp.Stop(StreamId[count - 1]);
+            {
+                if (StreamId[count - 1] != 0) sp.Stop(StreamId[count - 1]);
+            }
             return await Task.FromResult<bool>(true);
         }
 
         public void Release()
         {
             sp.Release();
+            SoundId = null;
+            StreamId = null;
         }
     }
 }

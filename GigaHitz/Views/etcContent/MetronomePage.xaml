@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.etcContent.MetronomePage"
-             BackgroundColor="{StaticResource etcColor}">
-    <AbsoluteLayout x:Name="Absolute">
-        <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+             BackgroundColor="{DynamicResource etcColor}">
+    <AbsoluteLayout x:Name="Absolute"
+                    BackgroundColor="{DynamicResource etcColor_DeepDark}">
+        <AbsoluteLayout BackgroundColor="{DynamicResource etcColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
             <Image  Source="menu_button.png"
@@ -17,8 +18,7 @@
                     AbsoluteLayout.LayoutFlags="All"
                     Clicked="Btn_Back"/>
         </AbsoluteLayout>
-        <StackLayout    BackgroundColor="{StaticResource etcColor}" 
-                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
+        <StackLayout    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
                         AbsoluteLayout.LayoutFlags="All">
             <Image Source="MetroHead.png"
                    Scale=".75"
@@ -29,7 +29,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="30~240"
                        TextColor="White"
-                       FontSize="{StaticResource FontFileSize}"
+                       FontSize="{DynamicResource FontFileSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"/>
@@ -38,9 +38,9 @@
                        Keyboard="Numeric"
                        Placeholder="Bpm"
                        PlaceholderColor="White"
-                       BackgroundColor="{StaticResource etcColor}"
+                       BackgroundColor="{DynamicResource etcColor_DeepDark}"
                        TextColor="White"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        MaxLength="5"
                        ReturnType="Done"
                        IsSpellCheckEnabled="false"
@@ -53,7 +53,7 @@
                 <Label x:Name="beats"
                        Text=" 4 / 4 "
                        TextColor="White"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"/>

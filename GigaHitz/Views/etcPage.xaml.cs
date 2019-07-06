@@ -1,15 +1,17 @@
 ﻿using System;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using GigaHitz.DataBase;
 using Xamarin.Forms;
 
 namespace GigaHitz.Views
 {
     public partial class etcPage : ContentPage
     {
+        //private CancellationTokenSource cts = new CancellationTokenSource();
+
         public etcPage()
         {
             InitializeComponent();
@@ -18,10 +20,18 @@ namespace GigaHitz.Views
             On<iOS>().SetUseSafeArea(true);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+
+            //StaticDatas.Load(cts.Token);
         }
 
         async void Btn_Back(object sender, EventArgs s)
         {
+            /*
+            if (cts != null)
+                cts.Cancel();
+            StaticDatas.PianoSound.Release();
+            StaticDatas.ReleasePianoSound();
+            //*/
             await Navigation.PopAsync(false);
         }
 
@@ -45,6 +55,12 @@ namespace GigaHitz.Views
 
         protected override bool OnBackButtonPressed()
         {
+            /*
+            if (cts != null)
+                cts.Cancel();
+            StaticDatas.PianoSound.Release();
+            StaticDatas.ReleasePianoSound();
+            //*/
             Navigation.PopAsync(false);
             return true;
         }

@@ -2,49 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:views="clr-namespace:GigaHitz.ViewModel"
-             xmlns:tt="clr-namespace:GigaHitz.TouchApi"
              x:Class="GigaHitz.Views.etcContent.PianoPage"
-             BackgroundColor="{StaticResource etcColor}">
-    <AbsoluteLayout>
-        <RelativeLayout BackgroundColor="{StaticResource etcColor}"
+             BackgroundColor="{DynamicResource etcColor}">
+    <!-- xmlns:tt="clr-namespace:GigaHitz.TouchApi"-->
+    <AbsoluteLayout x:Name="Main">
+        <RelativeLayout x:Name="AL"
+                        BackgroundColor="{DynamicResource etcColor}"
                         AbsoluteLayout.LayoutBounds="0, 0, 0.125, 1"
                         AbsoluteLayout.LayoutFlags="All">
-            <RelativeLayout x:Name="RL"
+            <AbsoluteLayout x:Name="AL1"
                             Rotation="-90"
-                            AnchorX="0"
-                            AnchorY="0"
-                            RelativeLayout.YConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=1}"
-                            RelativeLayout.WidthConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=1}"
-                            RelativeLayout.HeightConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Width,
-                        Factor=1}">
-                <Slider x:Name="slider"
-                            AnchorX="0.5"
-                            RelativeLayout.XConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Width,
-                        Factor=0.25}"
-                            RelativeLayout.YConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=0}"
-                            RelativeLayout.WidthConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Width,
-                        Factor=0.5}"
-                            RelativeLayout.HeightConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=1}"/>
-            </RelativeLayout>
-            <AbsoluteLayout Rotation="-90"
                             AnchorX="0"
                             AnchorY="0"
                             RelativeLayout.YConstraint="{ConstraintExpression 
@@ -59,15 +26,6 @@
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Image  Source="menu_button.png"
-                        IsEnabled="false"
-                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
-                        AbsoluteLayout.LayoutFlags="All"/>
-                <Button BackgroundColor="Transparent"
-                        CornerRadius="0"
-                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                        AbsoluteLayout.LayoutFlags="All"
-                        Clicked="Btn_Back"/>
             </AbsoluteLayout>
         </RelativeLayout>
         <ScrollView x:Name="Tile"
@@ -77,6 +35,16 @@
                     AbsoluteLayout.LayoutBounds="1, 0, 0.875, 1"
                     AbsoluteLayout.LayoutFlags="All">
             <StackLayout    Spacing="0">
+                <AbsoluteLayout x:Name="Tile4">
+                    <views:PianoTileView x:Name="C4"
+                                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                         AbsoluteLayout.LayoutFlags="All"/>
+                    <Label Text="C4" Rotation="-90"
+                           IsEnabled="false"
+                           TextColor="Black"
+                           AbsoluteLayout.LayoutBounds="1, 0.96875, 0.125, 0.125"
+                           AbsoluteLayout.LayoutFlags="All"/>
+                </AbsoluteLayout>
                 <AbsoluteLayout x:Name="Tile3">
                     <views:PianoTileView x:Name="C3"
                                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
@@ -92,6 +60,16 @@
                                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                                          AbsoluteLayout.LayoutFlags="All"/>
                     <Label Text="C2" Rotation="-90"
+                           IsEnabled="false"
+                           TextColor="Black"
+                           AbsoluteLayout.LayoutBounds="1, 0.96875, 0.125, 0.125"
+                           AbsoluteLayout.LayoutFlags="All"/>
+                </AbsoluteLayout>
+                <AbsoluteLayout x:Name="Tile1">
+                    <views:PianoTileView x:Name="C1"
+                                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                         AbsoluteLayout.LayoutFlags="All"/>
+                    <Label Text="C1" Rotation="-90"
                            IsEnabled="false"
                            TextColor="Black"
                            AbsoluteLayout.LayoutBounds="1, 0.96875, 0.125, 0.125"

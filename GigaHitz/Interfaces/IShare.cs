@@ -3,6 +3,7 @@ namespace GigaHitz.Interfaces
 {
     public interface IShare
     {
-        Task<bool> Share(string filePath);
+        //Task<bool> Share();
+        Task<bool> Share(string filePath, string fileName);
     }
 }

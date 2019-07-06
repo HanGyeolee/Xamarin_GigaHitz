@@ -7,7 +7,6 @@
             <Color x:Key="UpperColor">#F9FBC8</Color>
             <Color x:Key="LowerColor">#98FDB0</Color>
             <Color x:Key="NoticeColor">#DF71A9</Color>
-            <Color x:Key="NoticeColor_Dark">#D6679F</Color>
             <Color x:Key="NoticeColor_DeepDark">#CD5D95</Color>
             <Color x:Key="etcColor">#879CFE</Color>
             <Color x:Key="etcColor_Dark">#7E92F4</Color>

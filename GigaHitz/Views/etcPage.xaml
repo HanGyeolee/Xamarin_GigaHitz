@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.etcPage"
-             BackgroundColor="{StaticResource etcColor}">
+             BackgroundColor="{DynamicResource etcColor}">
     <AbsoluteLayout x:Name="Absolute">
-        <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+        <AbsoluteLayout BackgroundColor="{DynamicResource etcColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
                 <Image  Source="menu_button.png"
@@ -20,7 +20,7 @@
         <StackLayout    Spacing="0"
                         AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
                         AbsoluteLayout.LayoutFlags="All">
-            <AbsoluteLayout BackgroundColor="{StaticResource etcColor_DeepDark}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource etcColor_DeepDark}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Metronome.png"
@@ -33,7 +33,7 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="Btn_MetroPage"/>
             </AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="{StaticResource etcColor_Dark}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource etcColor_Dark}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Scale.png"
@@ -46,7 +46,7 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="Btn_PracticePage"/>
             </AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource etcColor}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Piano.png"

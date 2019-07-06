@@ -4,10 +4,10 @@
              xmlns:cell="clr-namespace:GigaHitz.ViewModel"
              xmlns:tt="clr-namespace:GigaHitz.TouchApi"
              x:Class="GigaHitz.Views.etcContent.PracticePage"
-             BackgroundColor="{StaticResource etcColor}">
+             BackgroundColor="{DynamicResource etcColor}">
     <AbsoluteLayout x:Name="Absolute"
-                    BackgroundColor="{StaticResource etcColor_Dark}">
-        <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+                    BackgroundColor="{DynamicResource etcColor_Dark}">
+        <AbsoluteLayout BackgroundColor="{DynamicResource etcColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
                 <Image  Source="menu_button.png"
@@ -39,7 +39,7 @@
                 <Label x:Name="current"
                        Text="  00:00"
                        TextColor="White"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="Center"/>
@@ -53,7 +53,7 @@
                 <Label x:Name="duration"
                        Text="00:00  "
                        TextColor="White"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="Center"/>

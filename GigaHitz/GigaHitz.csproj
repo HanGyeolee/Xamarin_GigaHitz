@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
     <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -24,10 +24,12 @@
     <Folder Include="TouchApi\" />
     <Folder Include="DataBase\" />
     <Folder Include="PermissionApi\" />
+    <Folder Include="Renderer\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="AppResources.resx" />
     <EmbeddedResource Remove="Localize\AppResources.resx" />
+    <EmbeddedResource Remove="Views\etcContent\LoadingView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resource\AppResources.Designer.cs" />
@@ -36,6 +38,7 @@
     <Compile Remove="ViewModel\RecordViewCell %28복사본%29.cs" />
     <Compile Remove="Assembly\CustomStepperRenderer.cs" />
     <Compile Remove="DataBase\DBFire.cs" />
+    <Compile Remove="Views\etcContent\LoadingView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />

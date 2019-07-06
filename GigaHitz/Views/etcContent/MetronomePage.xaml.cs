@@ -93,7 +93,7 @@ namespace GigaHitz.Views.etcContent
             (sender as Xamarin.Forms.Entry).Unfocus();
         }
 
-        async void Btn_Option(object sender, ClickedEventArgs s)
+        async void Btn_Option(object sender, EventArgs s)
         {
             playing = false;
 
@@ -135,7 +135,7 @@ namespace GigaHitz.Views.etcContent
             }
         }
 
-        void Btn_Play(object sender, ClickedEventArgs s)
+        void Btn_Play(object sender, EventArgs s)
         {
             count = 0;
             playing = true;
@@ -161,7 +161,7 @@ namespace GigaHitz.Views.etcContent
             edit.IsEnabled = false;
         }
 
-        void Btn_Pause(object sender, ClickedEventArgs s)
+        void Btn_Pause(object sender, EventArgs s)
         {
             playing = false;
 
@@ -172,7 +172,7 @@ namespace GigaHitz.Views.etcContent
             edit.IsEnabled = true;
         }
 
-        async void Btn_Back(object sender, ClickedEventArgs s)
+        async void Btn_Back(object sender, EventArgs s)
         {
             playing = false;
             await Navigation.PopAsync(false);

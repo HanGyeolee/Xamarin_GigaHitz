@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:cell="clr-namespace:GigaHitz.ViewModel"
              x:Class="GigaHitz.Views.RecordContent.OptionPage"
-             BackgroundColor="{StaticResource RecordColor}">
+             BackgroundColor="{DynamicResource RecordColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="TitleLabel" TargetType="Label">
@@ -17,8 +17,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout x:Name="Absolute"
-                    BackgroundColor="{StaticResource RecordColor_Dark}">
-        <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+                    BackgroundColor="{DynamicResource RecordColor_Dark}">
+        <AbsoluteLayout BackgroundColor="{DynamicResource RecordColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
                 <Image  Source="menu_button.png"
@@ -37,10 +37,10 @@
             <StackLayout    x:Name="BitsLayout"
                             Orientation="Horizontal">
                 <Label  Text="비트 레이트"
-                        Style="{StaticResource TitleLabel}"
+                        Style="{DynamicResource TitleLabel}"
                         HorizontalOptions="StartAndExpand"/>
                 <Label  x:Name="BitsValue"
-                        Style="{StaticResource TitleLabel}"
+                        Style="{DynamicResource TitleLabel}"
                         Text="  256"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -49,10 +49,10 @@
             <StackLayout    x:Name="RateLayout"
                             Orientation="Horizontal">
                 <Label  Text="샘플링 레이트"
-                        Style="{StaticResource TitleLabel}"
+                        Style="{DynamicResource TitleLabel}"
                         HorizontalOptions="StartAndExpand"/>
                 <Label  x:Name="RateValue"
-                        Style="{StaticResource TitleLabel}"
+                        Style="{DynamicResource TitleLabel}"
                         Text="44100"
                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
@@ -62,10 +62,10 @@
             <StackLayout Orientation="Horizontal"
                          Opacity="0">
                 <Label Text="0"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"/>
                 <Label Text="0"
-                       FontSize="{StaticResource FontFileSize}"/>
+                       FontSize="{DynamicResource FontFileSize}"/>
             </StackLayout>
             <StackLayout    Orientation="Horizontal">
                 <AbsoluteLayout VerticalOptions="FillAndExpand"

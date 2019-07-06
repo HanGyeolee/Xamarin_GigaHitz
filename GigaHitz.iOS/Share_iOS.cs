@@ -14,7 +14,7 @@ namespace GigaHitz.iOS
 {
     public class Share_iOS : Interfaces.IShare
     {
-        public Task<bool> Share(string filePath)
+        public Task<bool> Share(string filePath, string fileName)
         {
             var item = new NSUrl(filePath);
 
@@ -29,7 +29,6 @@ namespace GigaHitz.iOS
                     UIActivityType.AddToReadingList,
                     UIActivityType.AirDrop,
                     UIActivityType.AssignToContact,
-                    UIActivityType.Mail,
                     UIActivityType.Message,
                     UIActivityType.PostToFacebook,
                     UIActivityType.PostToFlickr,
@@ -46,7 +45,6 @@ namespace GigaHitz.iOS
                     UIActivityType.AddToReadingList,
                     UIActivityType.AirDrop,
                     UIActivityType.AssignToContact,
-                    UIActivityType.Mail,
                     UIActivityType.Message,
                     UIActivityType.OpenInIBooks,
                     UIActivityType.PostToFacebook,
@@ -64,7 +62,6 @@ namespace GigaHitz.iOS
                     UIActivityType.AddToReadingList,
                     UIActivityType.AirDrop,
                     UIActivityType.AssignToContact,
-                    UIActivityType.Mail,
                     UIActivityType.MarkupAsPdf,
                     UIActivityType.Message,
                     UIActivityType.OpenInIBooks,

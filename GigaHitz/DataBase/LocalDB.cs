@@ -64,13 +64,13 @@ namespace GigaHitz.DataBase
 
         public bool Read(out int param, int index = 0)
         {
-            if(tmp != null)
+            if (tmp != null)
             {
                 try
                 {
                     param = int.Parse(tmp[index]);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     param = -1;
                     return false;

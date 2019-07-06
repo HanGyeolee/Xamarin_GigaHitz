@@ -3,9 +3,11 @@ using System.Text.RegularExpressions;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using GigaHitz.DataBase;
+using GigaHitz.Renderer;
 using GigaHitz.PermissionApi;
 using Xamarin.Forms;
 
@@ -49,34 +51,21 @@ namespace GigaHitz.Views
 
             edit.Text = fileName;
 
-            edit.Unfocused += delegate {
+            edit.Unfocused += delegate
+            {
                 bool noname = false;
                 var NewTextValue = edit.Text;
 
-                if (Device.RuntimePlatform.Equals(Device.Android))              // 아직 안드로이드만 한글을 지원한다.
+                if (noname = Regex.IsMatch(NewTextValue, "^[0-9a-zA-Z가-힣\x20]{1,17}$")) // 안드로이드와 아이폰 둘다 한글을 지원한다.
                 {
-                    if (noname = Regex.IsMatch(NewTextValue, "^[0-9a-zA-Z가-힣\x20]{1,17}$"))
-                    {
-                        fileName = NewTextValue;
-                    }
-                    else
-                    {
-                        DisplayAlert("죄송해요!", "파일명은 한글, 영문, 숫자만 가능해요...", "알겠어요");
-                    }
+                    fileName = NewTextValue;
                 }
-                else //ios                                                      // 아이폰에도 한글지원이 가능한 지 찾아보자.
+                else
                 {
-                    if (noname = Regex.IsMatch(NewTextValue, "^[0-9a-zA-Z\x20]{1,17}$"))
-                    {
-                        fileName = NewTextValue;
-                    }
-                    else
-                    {
-                        DisplayAlert("죄송해요!", "파일명은 영문, 숫자만 가능해요...", "알겠어요");
-                    }
+                    DisplayAlert("죄송해요!", "파일명은 한글, 영문, 숫자만 가능해요...", "알겠어요");
                 }
 
-                if(!noname) // 이름이 잘 못 되었을 경우, 리셋시킨다.
+                if (!noname) // 이름이 잘 못 되었을 경우, 리셋시킨다.
                 {
                     fileName = string.Format("Records{0}", DateTime.Now.ToString("MMddHHmmss"));
                     Device.BeginInvokeOnMainThread(delegate
@@ -104,25 +93,12 @@ namespace GigaHitz.Views
 
         void TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Device.RuntimePlatform.Equals(Device.Android))              // 아직 안드로이드만 한글을 지원한다.
+            if (!Regex.IsMatch(e.NewTextValue, "^[0-9a-zA-Z가-힣ㄱ-ㅎ\x20]{0,17}$")) // 안드로이드와 아이폰 둘다 한글을 지원한다.
             {
-                if (!Regex.IsMatch(e.NewTextValue, "^[0-9a-zA-Z가-힣ㄱ-ㅎ\x20]{0,17}$"))
+                Device.BeginInvokeOnMainThread(delegate
                 {
-                    Device.BeginInvokeOnMainThread(delegate
-                    {
-                        (sender as Xamarin.Forms.Entry).Text = e.OldTextValue;
-                    });
-                }
-            }
-            else //ios                                                      // 아이폰에도 한글지원이 가능한 지 찾아보자.
-            {
-                if (!Regex.IsMatch(e.NewTextValue, "^[0-9a-zA-Z\x20]{0,17}$"))
-                {
-                    Device.BeginInvokeOnMainThread(delegate
-                    {
-                        (sender as Xamarin.Forms.Entry).Text = e.OldTextValue;
-                    });
-                }
+                    (sender as Xamarin.Forms.Entry).Text = e.OldTextValue;
+                });
             }
         }
 
@@ -179,16 +155,48 @@ namespace GigaHitz.Views
             await Navigation.PushAsync(new RecordContent.ListPage(), false);
         }
 
-        async void Btn_Record(object sender, EventArgs s)
+        void Btn_Record(object sender, EventArgs s)
         {
-            if (fileName.Length > 0)
-            {
-                filePath = Path.Combine(path, fileName + ".m4a");
-            }
             Device.BeginInvokeOnMainThread(delegate
             {
                 edit.Text = fileName;
             });
+
+            filePath = Path.Combine(path, fileName + ".m4a");
+
+            //TODO 이미 같은 이름의 파일이 있는 지, 쿼리 후 녹음 하도록 하자
+            if (File.Exists(filePath)) // 같은 이름의 파일이 있을 때
+            {
+                Device.BeginInvokeOnMainThread(async delegate
+                {
+                    if (await DisplayAlert("경 고", "같은 이름의 파일이 존재해요!\n덮어쓰시겠어요?", "네", "아니요"))
+                    { // 네
+                        Recording();
+                    }
+                    else // 아니요
+                    {
+                        fileName = string.Format("Records{0}", DateTime.Now.ToString("MMddHHmmss"));
+
+                        duration.Text = double2String(0, "{0:00}:{1:00}  ");
+                        edit.Text = fileName;
+                    }
+                });
+            }
+            else // 같은 이름의 파일이 없을 때
+            {
+                Recording();
+            }
+        }
+
+        async void Recording()
+        {
+            if (Device.RuntimePlatform == Device.iOS) // ios일 경우 파일 이름을 url로 인코딩한다. 
+            {
+                fileName = WebUtility.UrlEncode(fileName);
+                fileName = fileName.Replace("+", "%20");
+            }
+            filePath = Path.Combine(path, fileName + ".m4a");
+
             if (status_MIC.Equals(PermissionStatus.Granted))
             {
                 if (dB.IsExist()) // 존재 할 떄
@@ -212,10 +220,7 @@ namespace GigaHitz.Views
                 {
                     cts = true;
 
-                    recorder.Recording();
-
-                    var task = new Task(Update);
-                    task.Start();
+                    recorder.Recording(Update);
 
                     record.IsVisible = false;
                     record.IsEnabled = false;
@@ -233,7 +238,7 @@ namespace GigaHitz.Views
             }
             else
             {
-#region RequestPermission
+                #region RequestPermission
                 if (Device.RuntimePlatform.Equals(Device.iOS))
                 {
                     if (status_MIC.Equals(PermissionStatus.Unknown))
@@ -261,7 +266,7 @@ namespace GigaHitz.Views
                         });
                     }
                 }
-#endregion
+                #endregion
             }
         }
 

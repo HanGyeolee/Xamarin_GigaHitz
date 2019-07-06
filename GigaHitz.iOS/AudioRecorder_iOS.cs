@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using AVFoundation;
 using Foundation;
@@ -12,10 +13,13 @@ namespace GigaHitz.iOS
         static int BitsPerSec = 256 * 1024;
         static float SRate = 48000f;
 
-        public void Recording()
+        public void Recording(Action update)
         {
-            if(recorder != null)
+            if (recorder != null)
+            {
                 recorder.Record();
+                new Task(update).Start();
+            }
         }
 
         public void Release()
@@ -89,8 +93,14 @@ namespace GigaHitz.iOS
                 NumberChannels = 1,
             };
 
-            recorder = AVAudioRecorder.Create(url, settings, out err);
-
+            try
+            {
+                recorder = AVAudioRecorder.Create(url, settings, out err);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
             recorder.PrepareToRecord();
 
             return true;

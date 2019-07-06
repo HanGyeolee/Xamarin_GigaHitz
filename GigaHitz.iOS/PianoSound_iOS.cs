@@ -23,9 +23,13 @@ namespace GigaHitz.iOS
         public bool Play(int Index)
         {
             if (Index < count)
-                sp[Index].Play();
+            {
+                if (sp[Index] != null) sp[Index].Play();
+            }
             else
-                sp[count - 1].Play();
+            {
+                if (sp[count - 1] != null) sp[count - 1].Play();
+            }
             return true;
         }
 
@@ -36,21 +40,35 @@ namespace GigaHitz.iOS
             sp[count++].PrepareToPlay();
         }
 
+        public void AddSystemSound(string filePath, int index)
+        {
+            var path = new NSUrl("sounds/" + filePath + ".mp3");
+            sp[index] = new AVAudioPlayer(path, "mp3", out err);
+            sp[index].PrepareToPlay();
+            count++;
+        }
+
         public async Task<bool> Stop(int Index)
         {
             if (Index < count)
             {
-                if (sp[Index].Playing)
-                    sp[Index].Stop();
-                sp[Index].CurrentTime = 0;
-                sp[Index].PrepareToPlay();
+                if (sp[Index] != null)
+                {
+                    if (sp[Index].Playing)
+                        sp[Index].Stop();
+                    sp[Index].CurrentTime = 0;
+                    sp[Index].PrepareToPlay();
+                }
             }
             else
             {
-                if (sp[count - 1].Playing)
-                    sp[count - 1].Stop();
-                sp[count - 1].CurrentTime = 0;
-                sp[count - 1].PrepareToPlay();
+                if (sp[count - 1] != null)
+                {
+                    if (sp[count - 1].Playing)
+                        sp[count - 1].Stop();
+                    sp[count - 1].CurrentTime = 0;
+                    sp[count - 1].PrepareToPlay();
+                }
             }
 
             return await Task.FromResult<bool>(true);
@@ -60,6 +78,5 @@ namespace GigaHitz.iOS
         {
             sp = null;
         }
-
     }
 }

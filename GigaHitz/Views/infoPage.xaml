@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.infoPage"
-             BackgroundColor="{StaticResource infoColor}">
+             xmlns:Ads="clr-namespace:GigaHitz.Renderer"
+             BackgroundColor="{DynamicResource infoColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="TitleLabel" TargetType="Label">
@@ -25,7 +26,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout x:Name="Absolute">
-        <AbsoluteLayout BackgroundColor="{StaticResource infoColor}"
+        <AbsoluteLayout BackgroundColor="{DynamicResource infoColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
                 <Image  Source="menu_button.png"
@@ -39,45 +40,63 @@
                         Clicked="Btn_Back"/>
             </AbsoluteLayout>
         <StackLayout    Spacing="0"
-                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.9375"
+                        AbsoluteLayout.LayoutBounds="0.5, 1.625, 1, 0.9375"
                         AbsoluteLayout.LayoutFlags="All">
             <StackLayout    VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Used By"
-                       Style="{StaticResource TitleLabel}"/>
+                       Style="{DynamicResource TitleLabel}"/>
                 <Label Text="가톨릭대학교 성심교정&#10;중앙 아카펠라 동아리&#10;기가히츠"
-                       Style="{StaticResource ContentLabel}"/>
+                       Style="{DynamicResource ContentLabel}"/>
             </StackLayout>
             <StackLayout    VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Created By"
-                       Style="{StaticResource TitleLabel}"/>
+                       Style="{DynamicResource TitleLabel}"/>
                 <Label Text="최한결"
-                       Style="{StaticResource ContentLabel}"/>
+                       Style="{DynamicResource ContentLabel}"/>
             </StackLayout>
             <StackLayout    VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Designed By"
-                       Style="{StaticResource TitleLabel}"/>
+                       Style="{DynamicResource TitleLabel}"/>
                 <Label Text="임현아"
-                       Style="{StaticResource ContentLabel}"/>
+                       Style="{DynamicResource ContentLabel}"/>
             </StackLayout>
             <StackLayout    VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Thanks To"
-                       Style="{StaticResource TitleLabel}"/>
+                       Style="{DynamicResource TitleLabel}"/>
                 <Label Text="오경하"
-                       Style="{StaticResource ContentLabel}"/>
+                       Style="{DynamicResource ContentLabel}"/>
             </StackLayout>
             <StackLayout    VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Label Text="Feedback At"
-                       Style="{StaticResource TitleLabel}"/>
+                       Style="{DynamicResource TitleLabel}"/>
                 <Label x:Name="email"
                        TextDecorations="Underline"
                        Text="gigahitz.app@gmail.com &#10;"
-                       Style="{StaticResource ContentLabel}"/>
+                       Style="{DynamicResource ContentLabel}"/>
             </StackLayout>
+            <RelativeLayout x:Name="RL"
+                            HorizontalOptions="FillAndExpand">
+                <Ads:AdBanner   x:Name="AdBanner"
+                                AnchorX="0.5"
+                                AnchorY="0.5"
+                                HeightRequest="50"
+                                MinimumHeightRequest="50"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression 
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression 
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.15}"/>
+            </RelativeLayout>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

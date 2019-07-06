@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.RecordPage"
-             BackgroundColor="{StaticResource RecordColor}">
-    <AbsoluteLayout x:Name="Absolute">
-        <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+             BackgroundColor="{DynamicResource RecordColor}">
+    <AbsoluteLayout x:Name="Absolute"
+                    BackgroundColor="{DynamicResource RecordColor_Dark}">
+        <AbsoluteLayout BackgroundColor="{DynamicResource RecordColor}"
                         AbsoluteLayout.LayoutBounds="0.5, 0, 1, 0.0625"
                         AbsoluteLayout.LayoutFlags="All">
             <Image  Source="menu_button.png"
@@ -17,19 +18,20 @@
                     AbsoluteLayout.LayoutFlags="All"
                     Clicked="Btn_Back"/>
         </AbsoluteLayout>
+        
         <Image Source="microphone.png"
                Scale=".75"
                IsEnabled="false"
                AbsoluteLayout.LayoutBounds="0.5, 0.21875, 0.9375, 0.625"
                AbsoluteLayout.LayoutFlags="All"/>
-        <StackLayout    BackgroundColor="{StaticResource RecordColor}"
-                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.265625"
+        
+        <StackLayout    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.265625"
                         AbsoluteLayout.LayoutFlags="All">
             <StackLayout Orientation="Horizontal">
                 <Label x:Name="current"
                        Text="- 00:00"
-                       TextColor="{StaticResource RecordColor}"
-                       FontSize="{StaticResource FontTimeSize}"
+                       TextColor="{DynamicResource RecordColor_Dark}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"/>
@@ -37,9 +39,9 @@
                        Text="한글테스트"
                        Placeholder="FileName"
                        PlaceholderColor="White"
-                       BackgroundColor="{StaticResource RecordColor}"
+                       BackgroundColor="{DynamicResource RecordColor_Dark}"
                        TextColor="White"
-                       FontSize="{StaticResource FontFileSize}"
+                       FontSize="{DynamicResource FontFileSize}"
                        MaxLength="17"
                        ReturnType="Done"
                        IsSpellCheckEnabled="false"
@@ -51,7 +53,7 @@
                 <Label x:Name="duration"
                        Text="00:00  "
                        TextColor="White"
-                       FontSize="{StaticResource FontTimeSize}"
+                       FontSize="{DynamicResource FontTimeSize}"
                        FontAttributes="Bold"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"/>

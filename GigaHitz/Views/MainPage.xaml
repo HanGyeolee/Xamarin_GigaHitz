@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="GigaHitz.Views.MainPage"
-             BackgroundColor="{StaticResource NoticeColor}">
+             BackgroundColor="{DynamicResource NoticeColor}">
     <AbsoluteLayout x:Name="Absolute">
         <StackLayout    Spacing="0"
                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All">
-            <AbsoluteLayout BackgroundColor="{StaticResource NoticeColor}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource NoticeColor}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Notice.png"
@@ -20,7 +20,7 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="Btn_NoticePage"/>
             </AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="{StaticResource etcColor}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource etcColor}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Note.png"
@@ -33,7 +33,7 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="Btn_etcPage"/>
             </AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="{StaticResource RecordColor}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource RecordColor}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="Record.png"
@@ -46,7 +46,7 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="Btn_RecordPage"/>
             </AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="{StaticResource infoColor}"
+            <AbsoluteLayout BackgroundColor="{DynamicResource infoColor}"
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <Image  Source="information.png"
